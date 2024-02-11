@@ -40,6 +40,8 @@ class TagController extends AbstractController
             $entityManager->persist($tag);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre catégorie a été créee avec succès');
+
             return $this->redirectToRoute('admin_tag_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,6 +72,8 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre catégorie a été modifié avec succès');
+
             return $this->redirectToRoute('admin_tag_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -87,6 +91,8 @@ class TagController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$tag->getId(), $request->request->get('_token'))) {
             $entityManager->remove($tag);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Votre catégorie a été supprimée avec succès');
         }
 
         return $this->redirectToRoute('admin_tag_index', [], Response::HTTP_SEE_OTHER);

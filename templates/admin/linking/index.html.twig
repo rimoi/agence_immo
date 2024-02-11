@@ -1,0 +1,86 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Liste des contacts{% endblock %}
+
+{% block body %}
+
+    <div class="pt-3 text-center">
+        <a href="{{ path('admin_linking_new') }}" class="btn btn-secondary">Nouveau contact</a>
+    </div>
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">Liste des contacts</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Label</th>
+                                <th>Font Awesome</th>
+                                <th>Visibilité</th>
+                                <th>Lien interne ?</th>
+                                <th>Tél</th>
+                                <th>Lien</th>
+                                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for linking in linkings %}
+                                <tr>
+                                    <td>{{ linking.id }}</td>
+                                    <td>{{ linking.label }}</td>
+                                    <td>{{ linking.classe }}</td>
+
+                                    <td>
+                                        {% if linking.visibility %}
+                                            <span class="badge badge-pill badge-success">Oui</span>
+                                        {% else %}
+                                            <span class="badge badge-pill badge-secondary">Non</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if not linking.isExternal %}
+                                            <span class="badge badge-pill badge-primary">Oui</span>
+                                        {% else %}
+                                            <span class="badge badge-pill badge-secondary">Non</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if linking.phone  %}
+                                            {{ linking.phone }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if linking.link  %}
+                                            <a href="{{ linking.link }}" target="_blank">
+                                                <i class="fas fa-arrow-up-right-from-square"></i>
+                                            </a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('admin_linking_show', {'id': linking.id}) }}">Voir</a>
+                                        <a href="{{ path('admin_linking_edit', {'id': linking.id}) }}">Modifier</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7">Pas de contact disponible</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

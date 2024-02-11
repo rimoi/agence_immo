@@ -31,6 +31,15 @@
                      with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
+                    <a href="{{ path('admin_linking_index') }}" class="nav-link {{ route_name starts with 'admin_linking_' ? 'active' }}">
+                        <i class="nav-icon fas fa-link"></i>
+                        <p>
+                            Contacts
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ path('admin_mission_index') }}" class="nav-link  {{ route_name starts with 'admin_mission_' ? 'active' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>

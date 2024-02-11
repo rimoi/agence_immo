@@ -1,0 +1,73 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Modification contact{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var $sport = $('#linking_scope');
+        $sport.change(function() {
+
+            $('.js-loader').addClass('spinner-border')
+
+            var $form = $(this).closest('form');
+
+            var data = {};
+            data[$sport.attr('name')] = $sport.val();
+
+            if ($sport.val() == 'flux_rss') {
+                var elementToShow = 'link';
+                var elementToHidden = 'phone';
+            } else {
+                var elementToShow = 'phone';
+                var elementToHidden = 'link';
+            }
+
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+
+                    $('#linking_' + elementToShow).replaceWith(
+                        $(html).find('#linking_' + elementToShow)
+                    );
+                    $('#linking_' + elementToHidden).prop('disabled', true);
+                    $('#linking_' + elementToHidden).prop('value', null);
+
+                    setTimeout(function () {
+                        $('.js-loader').removeClass('spinner-border')
+                    }, 500);
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="py-2 text-center">
+        <div class="d-flex">
+            <div>
+                <a href="{{ path('admin_linking_index') }}" class="btn btn-dark">Retour</a>
+            </div>
+            <div class="pl-2">
+                {{ include('admin/linking/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Modification {{ linking.label }}</div>
+                    <div class="card-body">
+                        {{ include('admin/linking/_form.html.twig', {'button_label': 'Envoyer'}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

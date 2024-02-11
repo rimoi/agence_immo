@@ -1,0 +1,63 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Voir {{ linking.label }}{% endblock %}
+
+{% block body %}
+    <div class="py-2 text-center">
+        <div class="d-flex">
+            <div>
+                <a href="{{ path('admin_linking_index') }}" class="btn btn-dark">Retour</a>
+            </div>
+            <div class="px-2">
+                <a href="{{ path('admin_linking_edit', {'id': linking.id}) }}" class="btn btn-info">Modifier</a>
+            </div>
+            <div>
+                {{ include('admin/linking/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Voir {{ linking.label }}</div>
+                    <div class="card-body">
+                        <div>
+
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ linking.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Label</th>
+                                    <td>{{ linking.label }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Classe</th>
+                                    <td>{{ linking.classe }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone</th>
+                                    <td>{{ linking.phone }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Visibility</th>
+                                    <td>{{ linking.visibility ? 'Yes' : 'No' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>CreatedAt</th>
+                                    <td>{{ linking.createdAt ? linking.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
