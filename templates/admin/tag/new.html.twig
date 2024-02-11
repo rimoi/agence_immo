@@ -4,9 +4,23 @@
 
 {% block body %}
 
-    <h1>Nouvelle catégorie</h1>
+    <div class="py-2 text-center">
+        <a href="{{ path('admin_tag_index') }}" class="btn btn-dark">Retour</a>
+    </div>
 
-    {{ include('admin/tag/_form.html.twig') }}
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                <div class="card">
+                    <div class="card-header">Nouvelle catégorie</div>
+                    <div class="card-body">
+                        {{ include('admin/tag/_form.html.twig') }}
+                    </div>
+                </div>
 
-    <a href="{{ path('admin_tag_index') }}">Retour</a>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

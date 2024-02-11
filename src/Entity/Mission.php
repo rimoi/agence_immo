@@ -76,7 +76,7 @@ class Mission
     private $imageFile;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="mission")
+     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="mission", cascade={"persist", "remove"})
      */
     private $tags;
 

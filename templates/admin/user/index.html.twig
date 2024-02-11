@@ -3,56 +3,68 @@
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>{{ block('title') }}</h1>
 
-    <div class="my-2">
-        <a class="btn btn-primary" href="{{ path('admin_user_new') }}">Nouveau utilisateur</a>
+    <div class="pt-3 text-center">
+        <a href="{{ path('admin_user_new') }}" class="btn btn-secondary">Nouveau utilisateur</a>
     </div>
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Avatar</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>
-                    {% if user.avatar %}
-                        <img src="{{ user.imagePath|imagine_filter('ultra_small') }}" class="rounded-circle" alt="Logo {{ user.nickname }}">
-                    {% else %}
-                        <i class="fa-regular fa-circle-user fa-2x text-danger"></i>
-                    {% endif %}
-                </td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    {% for role in user.roles %}
-                        <span class="badge rounded-pill bg-dark">{{ role }}</span>
-                    {% endfor %}
-                <td>{{ user.createdAt ? user.createdAt|ago : '' }}</td>
-                <td>{{ user.updatedAt ? user.updatedAt|ago : '' }}</td>
-                <td>
-                    <a href="{{ path('admin_user_show', {'id': user.id}) }}">Voir</a>
-                    <a href="{{ path('admin_user_edit', {'id': user.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">Pas d'utilisateur trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <div class="card">
+                    <div class="card-header">Liste des utilisateurs</div>
+                    <div class="card-body">
 
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Rôles</th>
+                                <th>Création</th>
+                                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>
+                                        {% if user.avatar %}
+                                            <img src="{{ user.imagePath|imagine_filter('ultra_small') }}" class="rounded-circle" alt="Logo {{ user.nickname }}">
+                                        {% else %}
+                                            <i class="fa-regular fa-circle-user fa-2x text-danger"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user.firstName }}</td>
+                                    <td>{{ user.lastName }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        {% for role in user.roles %}
+                                            <span class="badge rounded-pill bg-dark">
+
+                            {{ role|translateRole }}
+                        </span>
+                                        {% endfor %}
+                                    <td>{{ user.createdAt ? user.createdAt|ago : '' }}</td>
+                                    <td>
+                                        <a href="{{ path('admin_user_show', {'id': user.id}) }}">Voir</a>
+                                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}">Modifier</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="12">Pas d'utilisateur trouvé</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

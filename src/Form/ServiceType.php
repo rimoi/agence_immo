@@ -7,10 +7,12 @@ use App\DTO\CountryDTO;
 use App\Entity\City;
 use App\Entity\Country;
 use App\Entity\Mission;
+use App\Entity\Tag;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,7 +23,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Constraints\File as FileConstraint;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
@@ -72,7 +73,7 @@ class ServiceType extends AbstractType
 
         if (!$isEdit || !$mission->getImageFile()) {
             $imageConstraints[] = new NotNull([
-                'message' => 'Merci de charger une image.$',
+                'message' => 'Merci de charger une image',
             ]);
         }
 
@@ -96,7 +97,7 @@ class ServiceType extends AbstractType
                     ]),
                     new Length([
                         'min' => 25,
-                        'max' => 1000,
+                        'max' => 15000,
                         'minMessage' =>  'La description doit comporter au moins {{ limit }} caractères !',
                         'maxMessage' => 'La description doit comporter au plus {{ limit }} caractères !',
                     ]),
@@ -115,6 +116,18 @@ class ServiceType extends AbstractType
                 ],
                 'attr' => ['class' => 'border-0']
             ])
+            ->add('tags', EntityType::class, [
+                'class' => Tag::class,
+                'choice_label' => 'name',
+                'label' => 'Catégorie',
+                'multiple' => true,
+                'by_reference' => false,
+                'attr' => [
+                    'placeholder' => 'Veuillez choisir une catégorie...',
+                    'class' => 'js-select2',
+                    'style' => "width: 90%",
+                ],
+            ])
             ->add('image', FileType::class, [
                 'required' => false,
                 'label' => false,
@@ -123,6 +136,11 @@ class ServiceType extends AbstractType
                     'class' => 'form-control'
                 ],
                 'constraints' => $imageConstraints,
+            ])
+            ->add('published', CheckboxType::class, [
+                'required' => false,
+                'label' => "📢 Cocher cette case pour publier l'annonce ?",
+                'label_attr' => ['class' => 'switch-custom'],
             ])
         ;
 

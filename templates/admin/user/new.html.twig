@@ -3,9 +3,24 @@
 {% block title %}Nouveau utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Nouveau utilisateur</h1>
 
-    {{ include('admin/user/_form.html.twig') }}
+    <div class="py-2 text-center">
+        <a href="{{ path('admin_user_index') }}" class="btn btn-dark">Retour</a>
+    </div>
 
-    <a href="{{ path('admin_user_index') }}" class="btn btn-dark">Retour</a>
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                <div class="card">
+                    <div class="card-header">Nouveau utilisateur</div>
+                    <div class="card-body">
+                        {{ include('admin/user/_form.html.twig') }}
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

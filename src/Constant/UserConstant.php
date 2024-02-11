@@ -22,7 +22,7 @@ class UserConstant
     private static $MAP_STRING = [
         self::ADMIN   => self::ROLE_ADMIN,
         self::FREELANCE => self::ROLE_FREELANCE,
-        self::CLIENT    => self::ROLE_CLIENT
+        self::CLIENT    => self::ROLE_USER
     ];
 
     public static function all(): array

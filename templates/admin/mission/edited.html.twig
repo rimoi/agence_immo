@@ -1,6 +1,6 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Nouveau service{% endblock %}
+{% block title %}Modifier le service {{ mission.title }}{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -41,12 +41,16 @@
 
 {% block body %}
 
-    <div class="container pt-5">
+    <div class="py-3">
+        <a href="{{ path('admin_mission_index') }}" class="btn btn-dark">Retour</a>
+    </div>
+
+    <div class="container pt-3">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 {{ form_start(form) }}
                     <div class="card">
-                        <div class="card-header">Nouveau service</div>
+                        <div class="card-header">{{ block('title') }}</div>
                         <div class="card-body">
                             <div class="mb-4">
                                 <h6 class="font-weight-bold">
@@ -74,7 +78,7 @@
                                     Catégories<sup class="text-danger">*</sup>
                                 </h6>
                                 <p class="text-muted">
-                                    Choisisez une ou plusieurs catégories.
+                                   Choisisez une ou plusieurs catégories.
                                 </p>
                                 <div class="form-group">
                                     {{ form_errors(form.tags) }}
@@ -140,55 +144,14 @@
                                 </p>
                                 <div class="form-group">
                                     {{ form_errors(form.image) }}
+                                   <div class="text-center">
+                                       <img src="{{ mission.imagePath|imagine_filter('thumbnail_medium') }}" class="img-fluid" alt="Image {{ mission.title }}">
+                                   </div>
                                     <div class="input-group mb-3 border border-light rounded">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text border-0 bg-white">📷</span>
                                         </div>
                                         {{ form_widget(form.image, {
-                                            attr: {
-                                                class: 'form-control'
-                                            }
-                                        }) }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <h6 class="font-weight-bold">
-                                    Pays
-                                </h6>
-                                <p class="text-muted">
-                                    Choisissez un pays.
-                                </p>
-                                <div class="form-group">
-                                    {{ form_errors(form.price) }}
-                                    <div class="input-group mb-3 border border-light rounded">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text border-0 bg-white">🌍</span>
-                                        </div>
-                                        {{ form_widget(form.country, {
-                                            attr: {
-                                                class: 'form-control js-select2',
-                                                style: 'width:94%'
-                                            }
-                                        }) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <h6 class="font-weight-bold">
-                                    Ville
-                                </h6>
-                                <p class="text-muted">
-                                    Choisissez une ville.
-                                </p>
-                                <div class="form-group">
-                                    {{ form_errors(form.price) }}
-                                    <div class="input-group mb-3 border border-light rounded">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text border-0 bg-white js-loader">🏫</span>
-                                        </div>
-                                        {{ form_widget(form.city, {
                                             attr: {
                                                 class: 'form-control'
                                             }
@@ -218,7 +181,7 @@
                             <div class="text-center mt-3">
                                 <button class="btn btn-primary next-btn">
                                     <i class="fa-solid fa-paper-plane"></i>
-                                    Soumettre le service
+                                    Mise à jour
                                 </button>
                             </div>
                         </div>

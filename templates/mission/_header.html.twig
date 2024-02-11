@@ -6,7 +6,7 @@
 
                 {% if mission.isOwner(app.user) %}
                     <p class="shop-detail-bar-wrap d-flex flex-wrap mb-0">
-                        <a href="{{ path('service_edited', {slug: mission.slug}) }}" class="btn btn-primary" title="Modifier l'annonce">
+                        <a href="{{ path('admin_mission_edit', {id: mission.id}) }}" class="btn btn-primary" title="Modifier l'annonce">
                             <i class="fa fa-edit"></i>
                             Modifier
                         </a>

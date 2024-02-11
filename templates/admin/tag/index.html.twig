@@ -3,37 +3,49 @@
 {% block title %}Liste des catégories{% endblock %}
 
 {% block body %}
-    <h1>Liste des catégories</h1>
 
-    <div class="pl-2">
-        <a href="{{ path('admin_tag_new') }}" class="btn btn-secondary">Nouvelle catégorie</a>
-    </div>
+        <div class="pt-3 text-center">
+            <a href="{{ path('admin_tag_new') }}" class="btn btn-secondary">Nouvelle catégorie</a>
+        </div>
+        <div class="container pt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
 
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>date de création</th>
-                <th>Contenu</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tag in tags %}
-            <tr>
-                <td>{{ tag.name }}</td>
-                <td>{{ tag.createdAt ? tag.createdAt|ago : '' }}</td>
-                <td>{{ tag.content|truncate(200)|raw }}</td>
-                <td>
-                    <a href="{{ path('admin_tag_show', {'id': tag.id}) }}">Afficher</a>
-                    <a href="{{ path('admin_tag_edit', {'id': tag.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Pas de catégorie disponible</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    <div class="card">
+                        <div class="card-header">Liste des catégories</div>
+                        <div class="card-body">
+
+                            <table class="table table-responsive">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>date de création</th>
+                                    <th>Contenu</th>
+                                    <th>actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for tag in tags %}
+                                    <tr>
+                                        <td>{{ tag.name }}</td>
+                                        <td>{{ tag.createdAt ? tag.createdAt|ago : '' }}</td>
+                                        <td>{{ tag.content|truncate(200)|raw }}</td>
+                                        <td>
+                                            <a href="{{ path('admin_tag_show', {'id': tag.id}) }}">Voir</a>
+                                            <a href="{{ path('admin_tag_edit', {'id': tag.id}) }}">Modifier</a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">Pas de catégorie disponible</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 {% endblock %}

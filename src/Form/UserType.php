@@ -25,11 +25,10 @@ class UserType extends AbstractType
             ->add('email', EmailType::class)
             ->add('type', ChoiceType::class, [
                     'choices' => [
-                        'Freelances' => UserConstant::ROLE_FREELANCE,
                         'Admin' => UserConstant::ROLE_ADMIN,
-                        'Autres' => UserConstant::ROLE_CLIENT,
+                        'Client' => UserConstant::ROLE_USER,
                     ],
-                    'label' => "RôLE :",
+                    'label' => "Rôles",
                     'mapped' => false
                 ]
             )
@@ -42,14 +41,18 @@ class UserType extends AbstractType
                 'invalid_message' => 'Les mots de passe doivent correspondre.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => false,
-                'first_options'  => ['label' => 'Changer de Mot de passe', 'attr' => ['placeholder' => '*******']],
-                'second_options' => ['label' => 'Confirmer le changement de mot de passe', 'attr' => ['placeholder' => '*******']],
+                'first_options'  => ['label' => 'Mot de passe', 'attr' => ['placeholder' => '*******']],
+                'second_options' => ['label' => 'Confirmer le mot de passe', 'attr' => ['placeholder' => '*******']],
             ])
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom'
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom'
+            ])
             ->add('imageFile', FileType::class, [
                 'required' => false,
-                'label' => false,
+                'label' => 'Avatar',
                 'mapped' => false,
                 'attr' => [
                     'class' => 'form-control'

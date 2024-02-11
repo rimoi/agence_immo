@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Constant\UserConstant;
 use App\Repository\ConversationRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -23,6 +24,7 @@ class StringExtension extends AbstractExtension
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
             new TwigFilter('truncate', [$this, 'displayTruncateFilter']),
+            new TwigFilter('translateRole', [$this, 'translateRoleFilter']),
         ];
     }
 
@@ -73,5 +75,11 @@ class StringExtension extends AbstractExtension
 
     public function getMessageNonLu($user) {
         return $this->conversationRepository->findByParticipationNonLu($user);
+    }
+
+    public function translateRoleFilter(string $role): string
+    {
+
+        return UserConstant::asStringInverse($role) ?? '';
     }
 }

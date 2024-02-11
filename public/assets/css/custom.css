@@ -124,6 +124,14 @@
     font-weight: 700;
 }
 
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #3e3a3a !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 41px !important;
+}
+
 sup.cs-notification-message {
     top: -.1em;
 }

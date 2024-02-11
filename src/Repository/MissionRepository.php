@@ -27,7 +27,9 @@ class MissionRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('m')
             ->where('m.archived = :archived')
+            ->andWhere('m.published = :published')
             ->setParameter('archived', false)
+            ->setParameter('published', true)
             ->orderBy('m.id', 'DESC');
 
         if ($term) {

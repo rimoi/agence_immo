@@ -159,7 +159,12 @@ class ServiceController extends AbstractController
 
             $mission->setUser($this->getUser());
 
-            $this->addFlash('success', 'Votre service a été créé avec succès. Il sera examiné et publié dans les plus brefs délais.');
+            $message = 'Il est publié avec succès';
+            if (!$mission->getPublished()) {
+                $message = "Votre annonce n'est pas encore publiée. Pour la rendre visible, veuillez accéder à l'annonce et cocher la case 'Publier l'annonce'.";
+            }
+
+            $this->addFlash('success', 'Votre service a été créé avec succès.' . $message);
 
             $entityManager->persist($mission);
             $entityManager->flush();

@@ -80,24 +80,24 @@
         </div>
     </section>
 
-    <div class="my-4">
-        <div class="text-center">
+{#    <div class="my-4">#}
+{#        <div class="text-center">#}
 
-            {% if not app.user %}
-                Vous souhaitez évaluer cette mission ? Pas de problème, il vous suffit de <a href="{{ path('app_login') }}">vous connecter</a> ou de
-                <a href="{{ path('app_register') }}">créer un compte</a> si vous n'en possédez pas encore.
-            {% elseif not mission.checkIfCurrentUserHasPublishedReviewForThisMission(app.user) %}
-                {% if mission.reviews.count %}
-                    <a href="{{ path('review_new', {slug: mission.slug}) }}" class="btn btn-primary" title="Cliquez ici pour poster un avis">Évaluer cette mission</a>
-                {% else %}
-                    <a href="{{ path('review_new', {slug: mission.slug}) }}" class="btn btn-primary" title="Cliquez ici pour poster un avis">Soyez le premier à donner votre avis sur cette mission</a>
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
+{#            {% if not app.user %}#}
+{#                Vous souhaitez évaluer cette mission ? Pas de problème, il vous suffit de <a href="{{ path('app_login') }}">vous connecter</a> ou de#}
+{#                <a href="{{ path('app_register') }}">créer un compte</a> si vous n'en possédez pas encore.#}
+{#            {% elseif not mission.checkIfCurrentUserHasPublishedReviewForThisMission(app.user) %}#}
+{#                {% if mission.reviews.count %}#}
+{#                    <a href="{{ path('review_new', {slug: mission.slug}) }}" class="btn btn-primary" title="Cliquez ici pour poster un avis">Évaluer cette mission</a>#}
+{#                {% else %}#}
+{#                    <a href="{{ path('review_new', {slug: mission.slug}) }}" class="btn btn-primary" title="Cliquez ici pour poster un avis">Soyez le premier à donner votre avis sur cette mission</a>#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
 
-    {% if mission.reviews.count %}
-        {% include 'mission/_reviewed.html.twig' %}
-    {% endif %}
+{#    {% if mission.reviews.count %}#}
+{#        {% include 'mission/_reviewed.html.twig' %}#}
+{#    {% endif %}#}
 
 {% endblock %}

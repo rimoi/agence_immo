@@ -3,47 +3,91 @@
 {% block title %}Liste des missions{% endblock %}
 
 {% block body %}
-    <h1>Missions</h1>
 
-    <div class="pl-2">
-        <a href="{{ path('admin_mission_new') }}" class="btn btn-secondary">Nouvelle mission</a>
-    </div>
+        <div class="py-2 px-4 text-center">
+            <a href="{{ path('admin_mission_new') }}" class="btn btn-secondary">Nouvelle mission</a>
+        </div>
 
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Utilisateur</th>
-                <th>Date de création</th>
-                <th>Last update</th>
-                <th>Titre</th>
-                <th>Prix</th>
-                <th>Archivé</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for mission in missions %}
-            <tr>
-                <td>
-                    {% if mission.user %}
-                        <a href="{{ path('admin_user_show', {'id': mission.user.id}) }}">{{ mission.user.nickname }}</a>
-                    {% endif %}
-                </td>
-                <td>{{ mission.createdAt ? mission.createdAt|date('Y-m-d H:i') : '' }}</td>
-                <td>{{ mission.updatedAt ? mission.updatedAt|date('Y-m-d H:i') : '' }}</td>
-                <td>{{ mission.title }}</td>
-                <td>{{ mission.price }} €</td>
-                <td>{{ mission.archived ? 'Oui' : 'Non' }}</td>
-                <td>
-                    <a href="{{ path('admin_mission_show', {'id': mission.id}) }}">show</a>
-                    <a href="{{ path('admin_mission_edit', {'id': mission.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">Pas de mission</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="container pt-2">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tornado" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 4l-18 0" /><path d="M13 16l-6 0" /><path d="M11 20l4 0" /><path d="M6 8l14 0" /><path d="M4 12l12 0" /></svg>
+                            Liste des annonces</div>
+                        <div class="card-body">
+
+                            <div class="mb-4">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Titre</th>
+                                        <th>
+                                            Prix</th>
+                                        <th>
+                                            Publié ?</th>
+                                        <th>
+                                            Date de création</th>
+                                        <th>
+                                            Mise à jour</th>
+                                        <th>
+                                            Archivé ?</th>
+                                        <th>actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for mission in missions %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('mission_show', {slug: mission.slug}) }}">
+                                                    {{ mission.title }}
+                                                </a>
+                                            </td>
+                                            <td>{{ mission.price }} €</td>
+                                            <td>
+                                                {% if mission.published %}
+                                                    <span class="badge badge-pill badge-primary">Oui</span>
+                                                {% else %}
+                                                    <span class="badge badge-pill badge-secondary">Non</span>
+                                                {% endif %}
+                                            <td>{{ mission.createdAt ? mission.createdAt|ago : '' }}</td>
+                                            <td>{{ (mission.updatedAt  and mission.updatedAt|date('d/m/YHi') != mission.createdAt|date('d/m/YHi')) ? mission.updatedAt|ago : '' }}</td>
+                                            <td>
+                                                {% if mission.published %}
+                                                    <span class="badge badge-pill badge-success">Oui</span>
+                                                {% else %}
+                                                    <span class="badge badge-pill badge-secondary">Non</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('mission_show', {slug: mission.slug}) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                                                    Voir
+                                                </a>
+
+                                                &nbsp;
+                                                |
+                                                &nbsp;
+                                                <a href="{{ path('admin_mission_edit', {'id': mission.id}) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                                                    Modifier
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="10">Pas d'annonces</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 {% endblock %}

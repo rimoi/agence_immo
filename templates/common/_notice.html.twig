@@ -17,25 +17,25 @@
             <div class="alert alert-{{ type}} d-flex align-items-center border-{{ type }}" role="alert">
                 {% if type == 'danger' %}
                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                    <span class="small">Échec !</span>&nbsp;&nbsp;
+                    <span class="small">&nbsp; Échec !</span>&nbsp;&nbsp;
                     <div class="mt-1 ml-2">
                         {{ message|raw }}
                     </div>
                 {% elseif type == 'warning' %}
                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                    <span class="small">Attention !</span>&nbsp;&nbsp;
+                    <span class="small"> &nbsp; Attention !</span>&nbsp;&nbsp;
                     <div class="mt-1 ml-2">
                         {{ message|raw }}
                     </div>
                 {% elseif type == 'info' %}
                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                    <span class="small">En cours de validation !</span>&nbsp;&nbsp;
+                    <span class="small">&nbsp; En attente !</span>&nbsp;&nbsp;
                     <div class="mt-1 ml-2">
                         {{ message|raw }}
                     </div>
                 {% elseif type == 'success' %}
                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                    <span class="small">Succès !</span>&nbsp;&nbsp;
+                    <span class="small"> &nbsp; Succès !</span>&nbsp;&nbsp;
                     <div class="mt-1 ml-2">
                         {{ message|raw }}
                     </div>
