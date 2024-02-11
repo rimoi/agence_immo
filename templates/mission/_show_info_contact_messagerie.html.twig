@@ -1,0 +1,37 @@
+<section class="featured-section section-padding">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex align-items-center custom-block featured-custom-block">
+                    <div>
+                        {% if mission.user.avatar %}
+                            <img src="{{ mission.user.imagePath|imagine_filter('thumbnail_medium') }}" class="rounded-circle" alt="Logo {{ mission.user.nickname }}">
+                        {% else %}
+                            <i class="fa-regular fa-circle-user fa-6x" style="color: #cf6950"></i>
+                        {% endif %}
+
+                        <p class="section-small-title mt-1 text-center">{{ mission.user.nickname }}</p>
+                    </div>
+                    {% if app.user and app.user.id == mission.user.id %}
+
+                    {% else %}
+                        <div class="ml-4">
+                            <h4 class="mt-2 mb-4">Contact Freelanceur</h4>
+
+                            <div class="d-flex">
+                                <div class=" text-center">
+                                    <form method="POST" action="{{ path('mission_conversations', {slug: mission.user.slug, missionSlug: mission.slug}) }}">
+                                        <button type="submit" class="btn btn-outline-success"  title="Contactez via la messagerie sécurisée du site.">
+                                            <i class="contact-icon bi-envelope me-1"></i>
+                                            Envoyer un message
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+</section>

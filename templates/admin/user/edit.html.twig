@@ -1,0 +1,17 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Modification {{ user.nickname }}{% endblock %}
+
+{% block body %}
+    <h1>Modification {{ user.nickname }}</h1>
+
+    <div class="my2">
+        <a href="{{ path('admin_user_index') }}" class="btn btn-dark">Retour</a>
+    </div>
+
+    {{ include('admin/user/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+
+    {{ include('admin/user/_delete_form.html.twig') }}
+{% endblock %}

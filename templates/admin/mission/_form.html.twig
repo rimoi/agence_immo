@@ -1,0 +1,16 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+     {% if form.vars.data.imageFile %}
+         <div class="text-center">
+             <a href="{{ uploaded_asset(form.vars.data.imageFile) }}" target="_blank">
+                 <img src="{{ mission.imagePath|imagine_filter('thumbnail_medium') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
+             </a>
+         </div>
+     {% endif %}
+
+    <div class="my-3">
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    </div>
+
+{{ form_end(form) }}

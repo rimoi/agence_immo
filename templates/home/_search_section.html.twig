@@ -1,0 +1,47 @@
+<section class="hero-slide d-flex justify-content-center align-items-center" id="section_1">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8 col-12 text-center mx-auto">
+                <div class="hero-section-text mt-5">
+                    <form class="custom-form hero-form" action="#" method="get" role="form">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-6 col-12">
+                                <div class="input-group align-items-center">
+                                    <label for="product-name">Mot clef : </label>
+
+                                    <input
+                                        value="{{ app.request.get('q') }}"
+                                        type="text"
+                                        name="q"
+                                        id="product-name"
+                                        class="form-control"
+                                        placeholder="PHP, Symfony, Javascript..."
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5 col-md-6 col-12">
+                                <div class="input-group align-items-center">
+                                    <label for="last-name">Prix : </label>
+                                    <select name="prices" class="form-select form-control" id="price-range" aria-label="Default select example">
+                                        <option value="1-200" {{ (app.request.get('prices') and app.request.get('prices') == '1-200') ? 'selected'  }}>1€ to 200€</option>
+                                        <option value="200-600" {{ (app.request.get('prices') and app.request.get('prices') == '200-600') ? 'selected'  }}>200€ - 600€</option>
+                                        <option value="600-1000" {{ (app.request.get('prices') and app.request.get('prices') == '600-1000') ? 'selected'  }}>600€ - 1000€</option>
+                                        <option value="1000-1500" {{ (app.request.get('prices') and app.request.get('prices') == '1000-1500') ? 'selected'  }}>1000€ - 1500€</option>
+                                        <option value="1500-15000" {{ (app.request.get('prices') and app.request.get('prices') == '1500-15000') ? 'selected'  }}> > 1500€</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-6 col-12">
+                                <button type="submit" class="form-control">Rechercher</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

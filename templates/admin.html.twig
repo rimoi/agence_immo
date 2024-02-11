@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+
+    <head>
+        <title>{% block title %}{% endblock %} - ADMIN Mission C2C</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+
+            <link href="{{ asset('./assets/fontawesome/css/all.css') }}" rel="stylesheet">
+        {% endblock %}
+    </head>
+
+    <body class="hold-transition {% block body_class '' %}">
+    <div class="wrapper">
+        {% include 'common/admin/_nav.html.twig' %}
+
+        <div class="content-wrapper">
+            <div class="content">
+                {% block body '' %}
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    {% endblock %}
+    </body>
+</html>

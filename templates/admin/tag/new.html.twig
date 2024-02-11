@@ -1,0 +1,12 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Nouvelle catégorie{% endblock %}
+
+{% block body %}
+
+    <h1>Nouvelle catégorie</h1>
+
+    {{ include('admin/tag/_form.html.twig') }}
+
+    <a href="{{ path('admin_tag_index') }}">Retour</a>
+{% endblock %}

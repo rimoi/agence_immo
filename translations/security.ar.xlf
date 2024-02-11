@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Email could not be found.</source>
+                <target>اسم المستخدم أو كلمة المرور غير صحيحة.</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Please enter a password</source>
+                <target>يرجى إدخال كلمة المرور.</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Your password should be at least 6 characters</source>
+                <target>يجب أن تكون كلمة المرور الخاصة بك 6 أحرف على الأقل.</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Email cannot be empty</source>
+                <target>لا يمكن أن يكون البريد الإلكتروني للمستخدم فارغًا !</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>First name cannot be empty</source>
+                <target>لا يمكن أن يكون الاسم فارغًا</target>
+            </trans-unit>
+             <trans-unit id="6">
+                <source>Last name cannot be empty</source>
+                <target>لا يمكن أن يكون الاسم  العائلي  فارغًا</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Pseudo cannot be empty</source>
+                <target>لا يمكن أن يكون الاسم فارغًا !</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>There is already an account with this email</source>
+                <target>يوجد حساب بهذا البريد الإلكتروني</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="telephone=no">
+    <style type="text/CSS"></style>
+    <style @import url('https://dopplerhealth.com/fonts/BasierCircle/basiercircle-regular-webfont.woff2');></style>
+    <title></title>
+    <!--[if mso]>
+    <style>
+        table {border-collapse:collapse;border-spacing:0;border:none;margin:0;}
+        div, td {padding:0;}
+        div {margin:0 !important;}
+    </style>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style>
+        table,
+        td,
+        div,
+        h1,
+        p {
+            font-family: 'Basier Circle', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        }
+
+        @media screen and (max-width: 530px) {
+            .unsub {
+                display: block;
+                padding: 8px;
+                margin-top: 14px;
+                border-radius: 6px;
+                background-color: #FFEADA;
+                text-decoration: none !important;
+                font-weight: bold;
+            }
+
+            .button {
+                min-height: 42px;
+                line-height: 42px;
+            }
+
+            .col-lge {
+                max-width: 100% !important;
+            }
+        }
+
+        @media screen and (min-width: 531px) {
+            .col-sml {
+                max-width: 27% !important;
+            }
+
+            .col-lge {
+                max-width: 73% !important;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin:0;padding:0;word-spacing:normal;background-color:#FDF8F4;">
+<div role="article" aria-roledescription="email" lang="fr" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#FDF8F4;">
+    <table role="presentation" style="width:100%;border:none;border-spacing:0;">
+        <tr>
+            <td align="center" style="padding:0;">
+                <!--[if mso]>
+                <table role="presentation" align="center" style="width:600px;">
+                    <tr>
+                        <td>
+                <![endif]-->
+                <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:'Basier Circle', 'Roboto', 'Helvetica', 'Arial', sans-serif;font-size:1em;line-height:1.37em;color:#384049;">
+                    {% set host = homepage|slice(0, homepage|length-1) %}
+                    <!--      Logo headder -->
+                    <tr>
+                        <td style="padding:40px 30px 30px 30px;text-align:center;font-size:1.5em;font-weight:bold;">
+                            <a href="{{ homepage }}" style="text-decoration:none;">
+                                <img width="2170" alt="Logo MISSION C2C" style="width:2170px;max-width:24%;height:auto;border:none;text-decoration:none;color:#ffffff;"
+                                     src="{{ host ~ asset('assets/images/logo/logo-mission-c2c.png') }}">
+                            </a>
+                        </td>
+                    </tr>
+                    <!--      Intro Section -->
+                    <tr>
+                        <td style="padding:30px;background-color:#ffffff;">
+                            <p style="margin:0;">Bonjour,</p>
+                            <p>Vous-avez reçu une nouvelle prise de contact de la part de :</p>
+                            <hr>
+                            <ul style="color: rgb(51, 51, 51);">
+                                <li style="color: rgb(51, 51, 51);">Nom & prénom : {{ contact.name }}</li>
+                                <li style="color: rgb(51,51, 51);">Téléphone : {{ contact.phone }}</li>
+                                <li style="color: rgb(51,51, 51);">Email : {{ contact.email }}</li>
+                                <li style="color: rgb(51,51, 51);">Rôles : {{ contact.type }}</li>
+                                <li style="color: rgb(51,51, 51);">Contenu de message :  {{ contact.content }}</li>
+                            </ul>
+                            <p style="margin-top: 20px">Cordialement</p>
+                            <p>Equipe <br>MISSION C2C</p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if mso]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

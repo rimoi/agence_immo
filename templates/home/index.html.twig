@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Liste des freelancers'%}
+
+{% block description %}
+    Découvrez notre plateforme unique qui simplifie la recherche du partenaire idéal pour la création de votre site web.
+    Le meilleur de tout, notre service est entièrement gratuit, à la fois pour les clients et les freelancers.
+    Trouvez des freelancers talentueux et expérimentés prêts à transformer votre vision en réalité.
+    Que vous ayez besoin d'un site vitrine professionnel, d'une boutique en ligne, ou d'un blog personnalisé, notre site vous met en contact avec des experts du web design,
+    du développement et du graphisme.
+    Simplifiez votre processus de sélection, obtenez des devis compétitifs, et lancez votre projet en toute confiance.
+    Créez le site web de vos rêves avec notre aide, sans frais ni commissions.
+{% endblock %}
+
+{% block body %}
+
+    {% include 'home/_search_section.html.twig' %}
+
+    <section class="shop-section section-padding" id="section_3">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12 col-12">
+                    <small class="section-small-title mt-2 mb-4">Liste des Freelancers (<span class="tooplate-red">{{ missions.getTotalItemCount }}</span>)</small>
+
+                </div>
+
+                {% for mission in missions %}
+                    <div class="col-lg-4 col-12">
+                        <div class="shop-thumb">
+                            <div class="shop-image-wrap">
+                                <a href="{{ path('mission_show', { slug: mission.slug }) }}">
+                                    <img class="shop-image img-fluid" src="{{ mission.imagePath|imagine_filter('thumbnail_homepage') }}" alt="Image {{ mission.title }}">
+{#                                    <img src="{{ asset('./assets/images/shop/green-sofa-white-living-room-with-blank-table-mockup.jpg') }}" class="shop-image img-fluid" alt="">#}
+                                </a>
+
+                                <div class="shop-icons-wrap">
+                                    <div class="shop-icons d-flex flex-column align-items-center">
+                                        {% if mission.user.avatar %}
+                                            <img src="{{ mission.user.imagePath|imagine_filter('thumbnail_small') }}" class="rounded-circle" alt="Logo {{ mission.user.nickname }}">
+                                        {% else %}
+                                            <i class="fa fa-user fa-3x rounded-circle" ></i>
+                                        {% endif %}
+
+{#                                        <a href="#" class="shop-icon bi-heart"></a>#}
+
+{#                                        <a href="#" class="shop-icon bi-bookmark"></a>#}
+                                    </div>
+
+                                    <p class="shop-pricing mb-0 mt-3">
+                                        <span class="badge custom-badge">{{ mission.price }} €</span>
+                                    </p>
+                                </div>
+
+                                <div class="shop-btn-wrap">
+                                    <a href="{{ path('mission_show', { slug: mission.slug }) }}" class="shop-btn custom-btn btn d-flex align-items-center align-items-center" title="Voir {{ mission.title }}">Plus d'infos</a>
+                                </div>
+                            </div>
+
+                            <div class="shop-body">
+                                <a href="{{ path('mission_show', { slug: mission.slug }) }}" title="Voir {{ mission.title }}">
+                                    <h4>{{ mission.title }}</h4>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="col-lg-12 col-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            {{ knp_pagination_render(missions) }}
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

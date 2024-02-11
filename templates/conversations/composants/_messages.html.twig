@@ -1,0 +1,33 @@
+{% for message in messages %}
+
+<div class="media w-75 p-2 mb-3 bg-white message-box {{ message.owner == app.user ? 'ml-auto' : '' }}">
+	{% if message.owner.avatar %}
+	<img src="{{ message.owner.imagePath|imagine_filter('chat_avatar') }}"
+		alt="{{ message.owner.firstName ?? '' }}" class="rounded-circle border">
+	{% else %}
+	<img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+	{% endif %}
+
+	<div class="media-body ml-2">
+		<div class="d-flex text-truncate p-0 m-0 align-items-top">
+			<strong>
+				{{ message.owner == app.user ? 'Vous' : message.owner.nickname }}
+			</strong>
+			&nbsp;&nbsp;
+			<span class="ml-auto text-muted small font-italic">
+				{{ message.createdAt|ago }}
+			</span>
+		</div>
+		<p class="font-italic font-weight-light">{{ message.content }}</p>
+
+		{% if message.file %}
+			<div class="py-2">
+				<p class="pb-0 mb-0 text-dark"><i class="fa fa-download"></i> Fichier joint</p>
+				<a href="{{ asset('uploads/' ~ message.imagePath)  }}" target="_blank">{{ message.file }}</a>
+			</div>
+		{% endif %}
+
+	</div>
+</div>
+
+{% endfor %}

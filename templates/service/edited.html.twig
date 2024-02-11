@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le service {{ mission.title }}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var $sport = $('#service_country');
+        $sport.change(function() {
+
+            $('.js-loader').addClass('spinner-border')
+
+            var $form = $(this).closest('form');
+
+            var data = {};
+            data[$sport.attr('name')] = $sport.val();
+
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    $('#service_city').replaceWith(
+                        $(html).find('#service_city')
+                    );
+
+                    $('#service_city').css('width', '94%');
+
+                    $('#service_city').select2();
+
+                    setTimeout(function () {
+                        $('.js-loader').removeClass('spinner-border')
+                    }, 500);
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                {{ form_start(form) }}
+                    <div class="card">
+                        <div class="card-header">{{ block('title') }}</div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Titre<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Titre de votre prestation.
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.title) }}
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">🗣</span>
+                                        </div>
+                                        {{ form_widget(form.title, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Contenu<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Une petite description de votre prestation, ça fait toujours plaisir au client.
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.content) }}
+                                    <div class=" mb-3 border border-light rounded">
+                                        {{ form_widget(form.content, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Prix<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Indiquez le prix pour ce service, c’est-à-dire le prix de la prestation que vous vendez.
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.price) }}
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">💰</span>
+                                        </div>
+                                        {{ form_widget(form.price, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Image<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Uploader une image pour votre prestation.
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.image) }}
+                                   <div class="text-center">
+                                       <img src="{{ mission.imagePath|imagine_filter('thumbnail_medium') }}" class="img-fluid" alt="Image {{ mission.title }}">
+                                   </div>
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">📷</span>
+                                        </div>
+                                        {{ form_widget(form.image, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <button class="btn btn-primary next-btn">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    Mise à jour
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

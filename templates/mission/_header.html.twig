@@ -1,0 +1,67 @@
+<section class="shop-detail-bar section-bg">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-7 col-md-8 col-12 d-flex">
+
+                {% if mission.isOwner(app.user) %}
+                    <p class="shop-detail-bar-wrap d-flex flex-wrap mb-0">
+                        <a href="{{ path('service_edited', {slug: mission.slug}) }}" class="btn btn-primary" title="Modifier l'annonce">
+                            <i class="fa fa-edit"></i>
+                            Modifier
+                        </a>
+                        &nbsp; &nbsp; &nbsp;
+                    </p>
+                {% endif %}
+                <p class="shop-detail-bar-wrap d-flex flex-wrap mb-0">
+                    <span class="me-2">Prix :</span>
+
+                    <strong class="shop-pricing-text">{{ mission.price }} €</strong>
+                </p>
+
+                {% if mission.tags.count %}
+                    <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-5 ms-4 mb-0 d-none d-sm-block">
+                        <span> &nbsp;&nbsp; | &nbsp; &nbsp; &nbsp;</span>
+                        <span class="me-2">Catégories :</span>
+
+                        {% for tag in mission.tags %}
+                            <a href="#">
+                                <span class="badge rounded-pill bg-success">{{ tag.name }} </span>
+                                &nbsp;
+                            </a>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+                {% if mission.country %}
+
+                    <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-5 ms-4 mb-0 d-none d-sm-block">
+                        <span> &nbsp;&nbsp; | &nbsp; &nbsp; &nbsp;</span>
+                        <span class="me-2">Localisation :</span>
+
+                        <strong class="shop-pricing-text">
+                            {{ mission.country.name }}
+
+                            {% if mission.city %}
+                                ( {{ mission.city.name }} )
+                            {% endif %}
+                        </strong>
+                    </p>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-5 col-md-4 col-12 social-share d-flex align-items-center ms-lg-auto mt-3 mt-lg-0 mt-md-0">
+                <p class="mb-0 me-3 ms-lg-auto ms-md-auto">Publié :</p>
+
+                <ul class="social-icon">
+
+                    <li class="social-icon-item">
+                        <i class="social-icon-link"></i>
+
+                        {{ mission.createdAt|ago }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

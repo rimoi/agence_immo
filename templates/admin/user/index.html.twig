@@ -1,0 +1,58 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>{{ block('title') }}</h1>
+
+    <div class="my-2">
+        <a class="btn btn-primary" href="{{ path('admin_user_new') }}">Nouveau utilisateur</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Avatar</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>
+                    {% if user.avatar %}
+                        <img src="{{ user.imagePath|imagine_filter('ultra_small') }}" class="rounded-circle" alt="Logo {{ user.nickname }}">
+                    {% else %}
+                        <i class="fa-regular fa-circle-user fa-2x text-danger"></i>
+                    {% endif %}
+                </td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% for role in user.roles %}
+                        <span class="badge rounded-pill bg-dark">{{ role }}</span>
+                    {% endfor %}
+                <td>{{ user.createdAt ? user.createdAt|ago : '' }}</td>
+                <td>{{ user.updatedAt ? user.updatedAt|ago : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_user_show', {'id': user.id}) }}">Voir</a>
+                    <a href="{{ path('admin_user_edit', {'id': user.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">Pas d'utilisateur trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

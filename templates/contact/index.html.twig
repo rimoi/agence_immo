@@ -1,0 +1,144 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Page Contact{% endblock %}
+
+{% block description %}
+    Nous sommes à votre écoute ! Contactez-nous pour toute question, demande d'information ou collaboration.
+    Notre équipe est là pour vous assister et vous fournir l'assistance dont vous avez besoin.
+    N'hésitez pas à nous contacter, nous sommes impatients de vous aider à concrétiser vos projets.
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <section class="contact-section" id="section_5">
+                <div class="row">
+
+                    <div class="col-lg-12 col-12">
+{#                        <small class="section-small-title">Ask anything.</small>#}
+
+                        <h2 class="mb-4">Contact</h2>
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+                        {{ form_start(form, {'attr': {class: 'custom-form contact-form'}}) }}
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group align-items-center">
+                                        <label for="first-name">Nom & Prénom</label>
+
+                                        {{ form_widget(form.name, {
+                                            attr: {
+                                                class: 'form-control',
+                                                placeholder: 'Jack'
+                                            }
+                                        }) }}
+{#                                        <input type="text" name="first-name" id="first-name" class="form-control" placeholder="Jack" required>#}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-group align-items-center">
+                                <label for="email">Téléphone</label>
+
+                                {{ form_widget(form.phone, {
+                                    attr: {
+                                        class: 'form-control',
+                                        placeholder: '0606060606'
+                                    }
+                                }) }}
+                                {#                                <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Jackdoe@gmail.com" required>#}
+                            </div>
+
+                            <div class="input-group align-items-center">
+                                <label for="email">Email</label>
+
+                                {{ form_widget(form.email, {
+                                    attr: {
+                                        class: 'form-control',
+                                        pattern: '[^ @]*@[^ @]*',
+                                        placeholder: 'Jackdoe@gmail.com'
+                                    }
+                                }) }}
+{#                                <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Jackdoe@gmail.com" required>#}
+                            </div>
+
+                            <div class="input-group textarea-group">
+                                <label for="message">Message</label>
+
+                                {{ form_widget(form.content, {
+                                    attr: {
+                                        class: 'form-control',
+                                        rows: '6',
+                                        placeholder: 'Comment pouvons-nous vous aider ?'
+                                    }
+                                }) }}
+{#                                <textarea name="message" rows="6" class="form-control" id="message" placeholder="What can we help you?"></textarea>#}
+                            </div>
+
+                        <div class="input-group align-items-center">
+                            <label for="first-name">Type de client</label>
+
+                            {{ form_widget(form.type, {
+                                attr: {
+                                    class: 'form-control'
+                                }
+                            }) }}
+                        </div>
+
+                        <div class="input-group align-items-center">
+                            <label for="first-name">Captcha</label>
+                            {{ form_errors(form.captcha) }}
+                            {{ form_widget(form.captcha, {'attr': {
+                                'class': 'col-md-12 col-sm-12 form-control',
+                                'style': 'margin-top: 2px',
+                                'placeholder': 'Saisissez ici votre Captcha.'
+                            }}) }}
+                        </div>
+
+                            <div class="col-lg-3 col-md-4 col-6">
+                                <button type="submit" class="form-control">Envoyer</button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+
+                    <div class="col-lg-6 col-12 mt-5 mt-lg-0">
+                        <div class="custom-block">
+
+                            <h3 class="text-white mb-2">Adresse</h3>
+
+                            <p class="text-white mb-2">
+                                <i class="contact-icon bi-geo-alt me-1"></i>
+
+                                3 rue gustave simon, 54000 Nancy
+                            </p>
+
+                            <h3 class="text-white mt-3 mb-2">Contact</h3>
+
+                            <div class="d-flex flex-wrap">
+{#                                <p class="text-white mb-2 me-4">#}
+{#                                    <i class="contact-icon bi-telephone me-1"></i>#}
+
+{#                                    <a href="tel: 090-080-0760" class="text-white">#}
+{#                                        06-05-#}
+{#                                    </a>#}
+{#                                </p>#}
+
+                                <p class="text-white">
+                                    <i class="contact-icon bi-envelope me-1"></i>
+
+                                    <a href="mailto:contact@mission-c2c.com" class="text-white">
+                                        contact@mission-c2c.com
+                                    </a>
+                                </p>
+                            </div>
+
+{#                            <iframe class="google-map mt-2" src="" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>#}
+                            <iframe class="google-map mt-2" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10535.503986440684!2d6.169991921154652!3d48.688735440951255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4794986d50f79ed5%3A0x596b44bd367379f7!2s3%20Rue%20Gustave%20Simon%2C%2054000%20Nancy!5e0!3m2!1sfr!2sfr!4v1695308207945!5m2!1sfr!2sfr" ></iframe>
+                        </div>
+                    </div>
+
+            </div>
+        </section>
+    </div>
+{% endblock %}

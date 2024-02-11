@@ -1,0 +1,127 @@
+<div class="osahan-chat-list">
+	{% if app.request.attributes.get('_route') == 'conversations' %}
+
+        {% for userconversation in conversations %}
+            <div class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden {{ userconversation == conversation ? 'bg-blue'  : (userconversation.hasReadLastMessage and userconversation.user2.id == app.user.id  ? 'bg-not-seen' : '') }}"
+            id="conversation-{{ userconversation.id }}">
+
+            {% if userconversation.user1.id == app.user.id %}
+                <a href="{{ path('conversations_show', {'id': userconversation.id}) }}" class="media">
+                    {% if userconversation.user1.avatar %}
+                        <img src="{{ userconversation.user1.imagePath|imagine_filter('chat_avatar') }}"
+                            alt="{{ userconversation.user1.nickname }}">
+                    {% else %}
+                        {% if userconversation.user2.avatar %}
+                            <img src="{{ userconversation.user2.imagePath|imagine_filter('chat_avatar') }}"
+                                class="rounded-circle border"
+                                alt="{{ userconversation.user2.nickname }}">
+                        {% else %}
+
+                            <img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+                        {% endif %}
+                    {% endif %}
+                        <span class="media-body ml-2">
+                            <span class="text-truncate">
+
+                                {{ userconversation.user2.nickname }}
+
+                            </span> <br>
+                            <span class="small text-truncate overflow-hidden text-black-50">
+
+                                {{ include('conversations/composants/_last_message.html.twig') }}
+
+                            </span>
+                        </span>
+                    </a>
+            {% elseif userconversation.user2.id == app.user.id %}
+                <a href="{{ path('conversations_show', {'id': userconversation.id}) }}" class="media">
+                    {% if userconversation.user1.avatar %}
+                        <img src="{{ userconversation.user1.imagePath|imagine_filter('chat_avatar')  }}"
+                            alt="{{ userconversation.user1.nickname }}">
+                    {% else %}
+                        {% if userconversation.user1.avatar %}
+                            <img src="{{ userconversation.user1.imagePath|imagine_filter('chat_avatar')  }}"
+                                class="rounded-circle border"
+                                alt="{{ userconversation.user1.nickname }}">
+                        {% else %}
+                            <img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+                        {% endif %}
+                    {% endif %}
+
+                <span class="media-body ml-2">
+                    <span>
+                        {{ userconversation.user1.nickname }}
+                    </span> <br>
+                    <span class="small text-truncate overflow-hidden text-black-50">
+                        {{ include('conversations/composants/_last_message.html.twig') }}
+                    </span>
+                </span>
+            </a>
+            {% endif %}
+
+        </div>
+        {% else %}
+            <div class="p-1 d-flex align-items-center border-bottom osahan-post-header overflow-hidden">
+                <p class="pt-2 pl-3">Aucune conversation</p>
+            </div>
+        {% endfor %}
+
+	{% else %}
+	    {% for userconversation in conversations %}
+
+	        <div
+                class="p-1 align-items-center border-bottom osahan-post-header overflow-hidden
+                {{ userconversation == conversation ? 'bg-blue' : (userconversation.hasReadLastMessage and userconversation.user2.id == app.user.id ? 'bg-not-seen' : '') }}
+                "
+                id="conversation-{{ userconversation.id }}">
+
+                {% if userconversation.user1.id == app.user.id %}
+                    <a href="{{ path('conversations_show', {'id': userconversation.id}) }}" class="media">
+
+                        {% if userconversation.user2.avatar %}
+                            <img src="{{ userconversation.user2.imagePath|imagine_filter('chat_avatar') }}"
+                                 class="rounded-circle border"
+                                 alt="{{ userconversation.user2.nickname }}">
+                        {% else %}
+                            <img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+                        {% endif %}
+
+                        <span class="media-body ml-2">
+                            <span class="text-truncate">
+                                {{ userconversation.user2.nickname }}
+                            </span>
+                            <span class="small text-truncate overflow-hidden text-black-50">
+                                {{ include('conversations/composants/_last_message.html.twig') }}
+                            </span>
+                        </span>
+
+                    </a>
+                {% elseif userconversation.user2.id == app.user.id %}
+                    <a href="{{ path('conversations_show', {'id': userconversation.id}) }}" class="media">
+
+                        {% if userconversation.user1.avatar %}
+                            <img src="{{ userconversation.user1.imagePath|imagine_filter('chat_avatar') }}"
+                                 class="rounded-circle border"
+                                 alt="{{ userconversation.user1.nickname }}">
+                        {% else %}
+                            <img src="{{ asset('img/user.jpg') }}" width="40" height="40" class="rounded-circle border">
+                        {% endif %}
+
+                        <span class="media-body ml-2">
+                            <span class="text-truncate">
+                                {{ userconversation.user1.nickname }}
+                            </span>
+                            <span class="small text-truncate overflow-hidden text-black-50">
+                                {{ include('conversations/composants/_last_message.html.twig') }}
+                            </span>
+                        </span>
+                    </a>
+                {% endif %}
+	        </div>
+	    {% else %}
+            <div class="p-1 d-flex align-items-center border-bottom osahan-post-header overflow-hidden">
+                <p class="pt-2 pl-3">Aucune conversation</p>
+            </div>
+	    {% endfor %}
+	{% endif %}
+</div>

@@ -1,0 +1,49 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Liste des missions{% endblock %}
+
+{% block body %}
+    <h1>Missions</h1>
+
+    <div class="pl-2">
+        <a href="{{ path('admin_mission_new') }}" class="btn btn-secondary">Nouvelle mission</a>
+    </div>
+
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Date de création</th>
+                <th>Last update</th>
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Archivé</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mission in missions %}
+            <tr>
+                <td>
+                    {% if mission.user %}
+                        <a href="{{ path('admin_user_show', {'id': mission.user.id}) }}">{{ mission.user.nickname }}</a>
+                    {% endif %}
+                </td>
+                <td>{{ mission.createdAt ? mission.createdAt|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ mission.updatedAt ? mission.updatedAt|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ mission.title }}</td>
+                <td>{{ mission.price }} €</td>
+                <td>{{ mission.archived ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <a href="{{ path('admin_mission_show', {'id': mission.id}) }}">show</a>
+                    <a href="{{ path('admin_mission_edit', {'id': mission.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">Pas de mission</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

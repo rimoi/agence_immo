@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% block title %}404 - Page non trouvé{% endblock %}
+
+{% block _header '' %}
+{% block _footer '' %}
+
+{% block meta_robots %}
+    <meta name="robots" content="noindex" />
+{% endblock %}
+
+{% block body %}
+    <style>
+        .error {
+            color: #5a5c69;
+            font-size: 7rem;
+            position: relative;
+            line-height: 1;
+            width: 12.5rem;
+        }
+
+        .error:after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -1px 0 #e74a3b;
+            top: 0;
+            color: #5a5c69;
+            background: #f8f9fc;
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: noise-anim 2s infinite linear alternate-reverse;
+        }
+
+        .error:before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            text-shadow: 1px 0 #4e73df;
+            top: 0;
+            color: #5a5c69;
+            background: #f8f9fc;
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: noise-anim-2 3s infinite linear alternate-reverse;
+        }
+        .text-gray-800 {
+            color: #5a5c69 !important;
+        }
+        .text-gray-500 {
+            color: #7b7b83 !important;
+        }
+
+
+    </style>
+    <div class="container mt-5">
+
+        <!-- 404 Error Text -->
+        <div>
+            <div class="error mx-auto" data-text="404">404</div>
+            <p class="lead text-gray-800 text-center">Page non trouvé</p>
+            <div class="row">
+                <div class="col-12 p-1 p-lg-0 offset-lg-2 text-gray-500 text-left">
+                    Oh oh ! On dirait que cette page a décidé de se cacher pour jouer à cache-cache avec vous.
+                    <br>
+                    <br>
+                    Nous avons cherché sous tous les angles, mais nous ne parvenons pas à la trouver.
+                    <br>
+                    <br>
+                    Peut-être qu'elle est partie en vacances sur une île tropicale ?
+                    <br>
+                    <br>
+                    Dans tous les cas, nous sommes désolés pour la confusion et espérons que vous trouverez ce que vous cherchez ailleurs sur notre site.
+                    <br>
+                    <br>
+                    Si vous avez besoin de nous, envoyez-nous un message et nous serons heureux de vous aider à trouver ce que vous cherchez.
+                    <br>
+                    <br>
+                    En attendant, bonne chasse et ne vous découragez pas, nous sommes sûrs que vous finirez par trouver ce que vous cherchez !
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="text-center  mb-5">
+                <a href="{{ path('home') }}" class="btn btn-primary">&larr; Revenir à la page d'accueil </a>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

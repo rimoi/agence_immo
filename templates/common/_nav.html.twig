@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+    <div class="container">
+{#        <a href="{{ path('home') }}">#}
+{#            <img src="{{ asset('assets/images/logo/logo-mission-c2c.png') }}" alt="Logo Mission C2C" width="85px;">#}
+{#        </a>#}
+        <a class="navbar-brand" href="{{ path('home') }}"><span class="tooplate-red">MISSION</span><span class="tooplate-green">C2C</span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {% set route = app.request.attributes.get('_route') %}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link click-scroll {{ route starts with 'home' ? 'active' }}" href="{{ path('home') }}">
+                        <i class="hero-icon bi-house"></i>
+                        Accueil
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll {{ route == 'about' ? 'active' }}" href="{{ path('about') }}">
+                        <i class="fa fa-address-card"></i>
+                        A propos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll {{ route starts with 'service' ? 'active' }}" href="{{ path('service_new') }}" title="Proposer un service">
+                        <i class="fa fa-person-circle-plus"></i>
+                        Proposer
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll {{ route starts with 'contact' ? 'active' }}" href="{{ path('contact') }}">
+                        <i class="fa fa-file-signature"></i>
+                        Contact
+                    </a>
+                </li>
+
+
+                {% if app.user %}
+                    <li class="nav-item  mr-3 cs-messagerie mt-sm-3 position-relative">
+                        <a class="btn btn-icon btn-transparent-dark"
+                           href="{{ path('conversations') }}">
+                            <div class="d-flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-mail {{ getMessageNonLu(app.user)|length > 0 ? 'text-danger' }}">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <span class="cs-messagerie-label ml-2"> Messagerie</span>
+                                {% if getMessageNonLu(app.user)|length > 0 %}
+                                    <sup class="text-danger cs-notification-message">{{ getMessageNonLu(app.user)|length }}</sup>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle click-scroll {{ route starts with 'profile' ? 'active' }}" href="#section_3" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if app.user.avatar %}
+                                <img src="{{ app.user.imagePath|imagine_filter('ultra_small') }}" class="rounded-circle" alt="Logo utilisateur">
+                            {% else %}
+                                <i class="fa fa-user"></i>
+                            {% endif %}
+
+                            {{ app.user.nickname }}
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('admin_index') }}">Admin</a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item {{ route starts with 'profile' ? 'active' }}" href="{{ path('profile') }}">Mon Profil</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ path('app_login') }}">
+                            <i class="fa fa-lock"></i>
+                            Se connecter
+                        </a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>

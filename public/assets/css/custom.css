@@ -1,0 +1,138 @@
+.pagination .page-item:first-child {
+    margin-right: 27px;
+}
+.pagination .page-item:last-child {
+    margin-right: 27px;
+}
+
+.pagination .page-item .page-link {
+    width: 68px;
+    height: 45px;
+}
+
+.invalid-feedback .badge.form-error-icon {
+    color: #a33737;
+}
+
+.ml-2 {
+    margin-left: .5rem!important;
+}
+
+.ml-4 {
+    margin-left: 1.5rem!important;
+}
+
+.mr-2 {
+    margin-right: .5rem!important;
+}
+
+.pl-3 {
+    padding-left: 2rem !important;
+}
+
+.site-header {
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+     padding-top: 0;
+     padding-bottom: 0;
+}
+
+.section-bg {
+    background: #d4d6d7;
+}
+
+.owl-carousel .owl-item img.js-review-circle {
+    width: 50px;
+}
+.osahan-chat-list a{
+    color: #343a40!important;
+}
+.osahan-chat-list .bg-blue .last-message span{
+    color: #ededed!important;
+}
+
+
+.bloc-masquer {
+    visibility: hidden !important;
+    height: 1px !important;
+}
+
+.ml-auto, .mx-auto {
+    margin-left: auto !important;
+}
+
+.bg-light {
+    background-color: #e2e4e7 !important;
+}
+
+.message-form.bg-light {
+    background-color: #e2e4e7 !important;
+}
+.message-form.border-top {
+    border-top: 1px solid #bbc6d1!important;
+}
+
+.btn-light {
+    background-color: #e5f7f0;
+    border-color: #d8f7eb;
+    color: #080679
+}
+
+.osahan-post-header:hover,
+.bg-blue {
+    background: #198754 !important;
+    border-color: #198754 !important;
+    color: #fff !important;
+}
+
+.border-blue {
+    border: 1px solid #080679 !important;
+}
+
+.bg-blue a, .bg-blue span,
+.osahan-post-header:hover a,
+.osahan-post-header:hover span,
+.osahan-post-header:hover small,
+.bg-blue a:hover,
+.bg-blue small:hover,
+.bg-blue span:hover {
+    color: #fff !important;
+}
+
+.bg-not-seen  {
+    background-color: #547868;
+    border-color: #252e2a !important;
+}
+
+.bg-lightgray {
+    background: #f0f5f7;
+}
+
+.message-box {
+    border-radius: 15px !important;
+    padding-top: 15px !important;
+    padding-bottom: 0 !important;
+}
+
+.cs-messagerie-label {
+    display: none;
+}
+
+.cs-notification-message {
+    font-weight: 700;
+}
+
+sup.cs-notification-message {
+    top: -.1em;
+}
+
+@media (max-width: 835px) {
+    .cs-messagerie {
+        margin-left: 1rem !important;
+    }
+    .cs-messagerie-label {
+        display: block;
+    }
+}

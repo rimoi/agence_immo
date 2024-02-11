@@ -1,0 +1,83 @@
+{% extends "base.html.twig" %}
+
+{% block title %}403 - Page non trouvé{% endblock %}
+
+
+{% block meta_robots %}
+    <meta name="robots" content="noindex" />
+{% endblock %}
+
+{% block _header '' %}
+{% block _footer '' %}
+
+{% block body %}
+    <style>
+        .error {
+            color: #5a5c69;
+            font-size: 7rem;
+            position: relative;
+            line-height: 1;
+            width: 12.5rem;
+        }
+
+        .error:after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -1px 0 #e74a3b;
+            top: 0;
+            color: #5a5c69;
+            background: #f8f9fc;
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: noise-anim 2s infinite linear alternate-reverse;
+        }
+
+        .error:before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            text-shadow: 1px 0 #4e73df;
+            top: 0;
+            color: #5a5c69;
+            background: #f8f9fc;
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: noise-anim-2 3s infinite linear alternate-reverse;
+        }
+        .text-gray-800 {
+            color: #5a5c69 !important;
+        }
+        .text-gray-500 {
+            color: #7b7b83 !important;
+        }
+
+
+    </style>
+    <div class="container mb-5 mt-5">
+
+        <!-- 404 Error Text -->
+        <div >
+            <div class="error mx-auto" data-text="403">403</div>
+            <p class="lead text-gray-800 text-center">Vous n'êtes pas autorisé à accèder à cette ressource</p>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-12 p-1 p-lg-0 offset-lg-2 text-gray-500 text-left">
+                    Oh oh ! On dirait que cette page a décidé de vous bloquez l'accès.
+                    <br>
+                    <br>
+                    Si vous avez besoin de nous, envoyez-nous un message et nous serons heureux de vous aider à trouver ce que vous cherchez.
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="text-center  mb-5">
+                <a href="{{ path('home') }}" class="btn btn-primary">&larr; Revenir à la page d'accueil </a>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

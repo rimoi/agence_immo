@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="telephone=no">
+    <style type="text/CSS"></style>
+    <style @import url('https://dopplerhealth.com/fonts/BasierCircle/basiercircle-regular-webfont.woff2');></style>
+    <title></title>
+    <!--[if mso]>
+    <style>
+        table {border-collapse:collapse;border-spacing:0;border:none;margin:0;}
+        div, td {padding:0;}
+        div {margin:0 !important;}
+    </style>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style>
+        table,
+        td,
+        div,
+        h1,
+        p {
+            font-family: 'Basier Circle', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        }
+
+        @media screen and (max-width: 530px) {
+            .unsub {
+                display: block;
+                padding: 8px;
+                margin-top: 14px;
+                border-radius: 6px;
+                background-color: #FFEADA;
+                text-decoration: none !important;
+                font-weight: bold;
+            }
+
+            .button {
+                min-height: 42px;
+                line-height: 42px;
+            }
+
+            .col-lge {
+                max-width: 100% !important;
+            }
+        }
+
+        @media screen and (min-width: 531px) {
+            .col-sml {
+                max-width: 27% !important;
+            }
+
+            .col-lge {
+                max-width: 73% !important;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin:0;padding:0;word-spacing:normal;background-color:#FDF8F4;">
+<div role="article" aria-roledescription="email" lang="fr" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#FDF8F4;">
+    <table role="presentation" style="width:100%;border:none;border-spacing:0;">
+        <tr>
+            <td align="center" style="padding:0;">
+                <!--[if mso]>
+                <table role="presentation" align="center" style="width:600px;">
+                    <tr>
+                        <td>
+                <![endif]-->
+                <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:'Basier Circle', 'Roboto', 'Helvetica', 'Arial', sans-serif;font-size:1em;line-height:1.37em;color:#384049;">
+                    {% set host = homepage|slice(0, homepage|length-1) %}
+                    <!--      Logo headder -->
+                    <tr>
+                        <td style="padding:40px 30px 30px 30px;text-align:center;font-size:1.5em;font-weight:bold;">
+                            <a href="{{ homepage }}" style="text-decoration:none;">
+                                <img width="2170" alt="Logo MISSION C2C" style="width:2170px;max-width:24%;height:auto;border:none;text-decoration:none;color:#ffffff;"
+                                     src="{{ host ~ asset('assets/images/logo/logo-mission-c2c.png') }}">
+                            </a>
+                        </td>
+                    </tr>
+                    <!--      Intro Section -->
+                    <tr>
+                        <td style="padding:30px;background-color:#ffffff;">
+                            <p style="margin:0;">Bonjour,</p>
+                            <p>
+                                Depuis votre dernière visite sur MISSION-C2C, {{ conversation.user1.nickname() }} vous a envoyé un message au sujet de votre mission
+                                "{{ conversation.mission.title }}".
+                            </p>
+                            <blockquote style="margin: 0px 0px 30px; padding: 10px 20px 10px 17px; border-left: 3px solid rgb(222, 222, 224); font-family: Arial, sans-serif; font-size: 14px; line-height: 20px; color: rgb(0, 0, 0) !important; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(243, 243, 243) !important;">
+                                {{ conversation.lastMessage.content|raw }}
+                            </blockquote>
+                            <p style="text-align: center;margin: 2.5em auto;">
+                                <a class="button" href="{{ host ~ path('conversations_show', {id: conversation.id}) }}" style="background: #DE4D3B;
+                       text-decoration: none;
+                       padding: 1em 1.5em;
+                       color: #ffffff;
+                       border-radius: 48px;
+                       mso-padding-alt:0;
+                       text-underline-color:#ff3884">
+                                    <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:20pt">&nbsp;</i><![endif]-->
+                                    <span style="mso-text-raise:10pt;font-weight:bold;">Répondre au message</span>
+                                    <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;</i><![endif]-->
+                                </a>
+                            </p>
+
+                            <p style="margin-top: 20px">Cordialement</p>
+                            <p>Equipe MISSION C2C</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:30px;text-align:center;font-size: 0.75em;background-color:#ffeada;color:#384049;border: 1em solid #fff;">
+                            <p style="margin:0;font-size:.75rem;line-height:1.5em;text-align: center;">
+                                MISSION C2C
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if mso]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

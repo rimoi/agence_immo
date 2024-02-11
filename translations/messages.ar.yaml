@@ -1,0 +1,90 @@
+home:
+  nav:
+    home: الرئيسية
+    about: من نحن
+    blog: تدوينات
+    us-work: إنجزات
+    contact: اتصل بنا
+  text:
+    welcome: مرحبا
+  action:
+    send: إرسال
+  connection:
+    login: تسجيل الدخول
+    join: الإنضمام
+    signup:
+      type: إنشاء حساب
+      name: إسم العائلي
+      prenom: الإ سم
+      pseudo: لقب
+      email: البريد الإلكتروني
+      telephone: إرسال الهاتف
+      password: كلمة السر
+      confirm-password: تأكيد كلمة السر
+      forgot-password: نسيت كلمة المرور
+      logged: لقد قمت بتسجيل الدخول باسم
+      logout: تسجيل الخروج
+  reset:
+    title: إعادة ضبط كلمة سر
+    description: |
+      أدخل عنوان بريدك الإلكتروني وسنرسل لك
+      رابط لإعادة تعيين كلمة المرور الخاصة بك.
+  password_reset: إعادة ضبط كلمة سر
+  email:
+    reset_send: تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور
+    expire_email: تم إرسال بريد إلكتروني يحتوي على رابط يمكنك النقر فوقه لإعادة تعيين كلمة المرور الخاصة بك. <br><br>  ستنتهي صلاحية هذا الرابط في
+    expire_hours_email: ساعات
+    check_spam: إذا لم تتلق بريدًا إلكترونيًا ، فيرجى التحقق من مجلد الرسائل غير المرغوب فيها أو
+    try: للمحاولة
+    visit: لإعادة تعيين كلمة المرور الخاصة بك ، يرجى زيارة
+    link_expire: ستنتهي صلاحية هذا الرابط خلال ساعتين
+  greeting:
+    hi: السلام عليكم
+    Cheers: شكرا لكم
+  back_home: العودة إلى الرئيسية
+
+website:
+    controller:
+        home:
+            index: ~
+    view:
+        home:
+            index:
+                no_article: 'لا توجد إعلانات متاحة...'
+                action:
+                    open: 'فتح'
+                h1: 'أول منصة لربط الزبناء والمهنيين في موريتانيا'
+                search:
+                    advanced:
+                        by_categories: 'البحث عن المهنة'
+                        by_location: 'البحث عبر المنطقة'
+                    input:
+                        keyword: 'تحتاج ...'
+                        location: 'المدينة ، الحي ...'
+                    button:
+                        title: 'بحث'
+            admin:
+                title: 'الادارة'
+            auth:
+                login: 'الدخول'
+                logout: 'الخروج'
+        contact:
+            index:
+                name: 'الاسم الكامل'
+                email: 'البريد الإلكتروني'
+                message: 'رسالتك'
+                captcha: 'Captcha'
+                action:
+                    submit: 'إرسال'
+        annonce:
+            action:
+                back: ' <i class="fas fa-arrow-right"></i> رجوع إلى نتائج البحث'
+                back_only: '<i class="fas fa-arrow-right"></i> رجوع'
+            description: 'Description'
+            location: 'موقع'
+            contact: 'معلومات'
+            works: 'المهنة'
+            phone:
+                show: 'أظهر رقم الهاتف'
+                num1: 'الرقم الأساسي'
+                num2: 'الرقم الثانوي'

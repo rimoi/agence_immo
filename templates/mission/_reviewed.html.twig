@@ -1,0 +1,49 @@
+<section class="reviews-section section-padding pb-0" id="section_4">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-12 col-12">
+{#                <small class="section-small-title">Happy customers.</small>#}
+
+                <h2 class="mt-2 mb-4">Avis</h2>
+
+                <div class="owl-carousel reviews-carousel">
+                    {% for review in mission.reviews %}
+                        <div class="reviews-thumb">
+                            <div class="reviews-body">
+                                <h6>{{ review.content|raw }}</h6>
+                            </div>
+
+                            <div class="reviews-bottom reviews-bottom-up d-flex align-items-center">
+
+                                {% if review.user.avatar %}
+                                    <img src="{{ review.user.imagePath|imagine_filter('thumbnail_small') }}" class="avatar-image img-fluid rounded-circle js-review-circle" alt="Logo {{ review.user.nickname }}">
+                                {% else %}
+                                    <i class="fa-regular fa-circle-user fa-3x" style="color: #cf6950"></i>
+                                {% endif %}
+
+                                <div class="d-flex align-items-center justify-content-between flex-wrap w-100 ms-3">
+                                    <p class="text-white mb-0">
+                                        <strong>{{ review.user.firstName }}</strong>, <small>{{  review.user.lastName }}</small>
+                                    </p>
+
+                                    <div class="reviews-icons">
+
+                                        {% for start in review.getStarFills %}
+                                            {% if start %}
+                                                <i class="bi-star-fill"></i>
+                                            {% else %}
+                                                <i class="bi-star"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</section>

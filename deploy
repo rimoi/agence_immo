@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av -e * rimoi:/var/www/rimoi/ --exclude=vendor --exclude-from=.gitignore --exclude=".*"

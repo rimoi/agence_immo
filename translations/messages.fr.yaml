@@ -1,0 +1,99 @@
+home:
+  nav:
+    home: Accueil
+    about: Qui suis-je ?
+    blog: Blog
+    us-work: Réalisations
+    contact: Contact
+  text:
+    welcome: Bienvenue !
+  action:
+    send: Soumettre
+  connection:
+    login: Se connecter
+    join: S'inscrire
+    signup:
+      type: Création de compte
+      name: Nom
+      prenom: Prénom
+      pseudo: Pseudo
+      email: Email
+      telephone: Téléphone
+      password: Mot de passe
+      confirm-password: Confirmation mot de passe
+      forgot-password: Mot de passe oublié
+      logged: Vous êtes connecté en tant que
+      logout: Déconnexion
+  reset:
+    title: Réinitialisation du mot de passe
+    description: |
+      Entrez votre adresse e-mail et nous vous enverrons un
+      lien pour réinitialiser votre mot de passe.
+  password_reset: Réinitialiser le mot de passe
+  email:
+    reset_send: Password Reset Email Sent
+    expire_email: Un e-mail a été envoyé contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. <br /> <br />  Ce lien expirera dans
+    expire_hours_email: hour(s)
+    check_spam: Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou
+    try: réessayer
+    visit: Pour réinitialiser votre mot de passe, veuillez visiter
+    link_expire: Ce lien expirera dans 2 heures
+    here: ici
+  greeting:
+    hi: Bonjour
+    cheers: Cordialement
+  back_home: Retourner à l'accueil
+  description:  Tout sur les astuces de PHP/Symfony, Javacsript, Twig, ..., pour faciliter notre développement et/ou retour d'expérience sur certaines fonctionnalités.
+article:
+  read: Lire
+
+website:
+    controller:
+        home:
+            index:
+
+    view:
+        home:
+            index:
+                no_article: 'Pas d''article disponible...'
+                h1: 'La première plateforme de mise en contact des clients et professionnels en Mauritanie'
+                search:
+                    h2: 'Recherche'
+                    advanced:
+                        by_categories : 'Recherche par métier'
+                        by_location : 'Recherche par zone'
+                    input:
+                        keyword: 'Vous avez besoin de ...'
+                        location: 'Ville, quartier ...'
+                    button:
+                        title: 'Rechercher'
+                action:
+                    open: 'Ouvrir'
+            admin:
+                title: 'Admin'
+            auth:
+                login: 'Se connecter'
+                logout: 'Se déconnecter'
+        contact:
+            index:
+                name: 'Nom et Prénom'
+                email: 'Email (*)'
+                message: 'Votre message'
+                captcha: 'captcha'
+                action:
+                    submit: 'Envoyer'
+        annonce:
+            action:
+                back: ' <i class="fas fa-arrow-left"></i> Retour aux résultats de recherche'
+                back_only: '<i class="fas fa-arrow-left"></i> Retour'
+            description: 'Description'
+            location: 'Localisation'
+            works: 'Métiers'
+            contact: 'Contact'
+            phone:
+                show: 'Afficher le numéro'
+                num1: 'Numéro principale'
+                num2: 'Numéro secondaire'
+
+
+

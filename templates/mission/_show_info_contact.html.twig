@@ -1,0 +1,49 @@
+<section class="featured-section section-padding">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex align-items-center custom-block featured-custom-block">
+                    <div>
+                        {% if mission.user.avatar %}
+                            <img src="{{ mission.user.imagePath|imagine_filter('thumbnail_medium') }}" class="rounded-circle" alt="Logo {{ mission.user.nickname }}">
+                        {% else %}
+                            <i class="fa-regular fa-circle-user fa-6x" style="color: #cf6950"></i>
+                        {% endif %}
+
+                        <p class="section-small-title mt-1 text-center">{{ mission.user.nickname }}</p>
+                    </div>
+                    <div class="ml-4">
+                        <h4 class="mt-2 mb-4">Contact Freelanceur</h4>
+
+                        <div class="d-flex">
+
+                            <div>
+                                {% if mission.user.phone %}
+                                    <p class="mb-2">
+                                        <i class="contact-icon bi-telephone me-1"></i>
+                                        Téléphone :
+                                        <strong class="d-inline">
+                                            <a href="tel:{{ mission.user.phone }}">{{ mission.user.phone }}</a>
+                                        </strong>
+                                    </p>
+                                {% endif %}
+
+                                <p class="mb-2">
+                                    <i class="contact-icon bi-envelope me-1"></i>
+
+                                    Email :
+                                    <strong class="d-inline">
+                                        <a href="mailto:{{ mission.user.email }}">{{ mission.user.email }}</a>
+                                    </strong>
+                                </p>
+{#                                {% if mission.user.phone %}#}
+{#                                    <p class="text-muted mt-3 small">*Veuillez svp contacter pendant les heures d'appel (entre 8-19h).</p>#}
+{#                                {% endif %}#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</section>
