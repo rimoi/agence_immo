@@ -1,0 +1,58 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Voir quartier '{{ district.name }}'{% endblock %}
+
+{% block body %}
+
+    <div class="text-center">
+        <div class="my-3">
+            <a href="{{ path('admin_district_index') }}" class="btn btn-dark">Retour</a>
+            &nbsp;
+            <a href="{{ path('admin_district_edit', {'id': district.id}) }}" class="btn btn-primary">Modifier</a>
+        </div>
+    </div>
+
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">{{ block('title') }}</div>
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ district.id }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Nom quartier</th>
+                                <td>{{ district.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom ville</th>
+                                <td>{{ district.nameCity }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Nom Pays</th>
+                                <td>{{ district.nameCountry }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date de création</th>
+                                <td>{{ district.createdAt ? district.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-4 text-right">
+                        {{ include('admin/district/_delete_form.html.twig') }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

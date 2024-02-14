@@ -36,20 +36,15 @@ class Country
     private $missions;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $iso2;
-
-    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity=District::class, mappedBy="country")
      */
-    private $reference;
+    private $districts;
 
     public function __toString(): string
     {
@@ -60,6 +55,7 @@ class Country
     {
         $this->cities = new ArrayCollection();
         $this->missions = new ArrayCollection();
+        $this->districts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,7 +68,7 @@ class Country
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -171,6 +167,36 @@ class Country
     public function setReference(int $reference): self
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|District[]
+     */
+    public function getDistricts(): Collection
+    {
+        return $this->districts;
+    }
+
+    public function addDistrict(District $district): self
+    {
+        if (!$this->districts->contains($district)) {
+            $this->districts[] = $district;
+            $district->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDistrict(District $district): self
+    {
+        if ($this->districts->removeElement($district)) {
+            // set the owning side to null (unless already changed)
+            if ($district->getCountry() === $this) {
+                $district->setCountry(null);
+            }
+        }
 
         return $this;
     }

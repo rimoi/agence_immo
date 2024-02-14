@@ -4,10 +4,15 @@ namespace App\Controller\Admin;
 
 use App\Entity\City;
 use App\Entity\Country;
+use App\Entity\District;
+use App\Entity\File;
+use App\Entity\Image;
 use App\Entity\Mission;
 use App\Form\MissionType;
 use App\Form\ServiceType;
+use App\helper\FormHelper;
 use App\Repository\MissionRepository;
+use App\Service\QualificationService;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +33,7 @@ class MissionController extends AbstractController
     public function index(MissionRepository $missionRepository): Response
     {
         return $this->render('admin/mission/index.html.twig', [
-            'missions' => $missionRepository->findAll(),
+            'missions' => $missionRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -47,53 +52,31 @@ class MissionController extends AbstractController
 
         $form->handleRequest($request);
 
+        $errors = null;
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $countryExist = null;
-            if ($service->getCountry()) {
-                $countryExist = $entityManager->getRepository(Country::class)->findOneBy(['reference' => $service->getCountry()->getReference()]);
 
-                if (!$countryExist) {
-                    $entityManager->persist($service->getCountry());
-                } else {
-                    $service->setCountry($countryExist);
-                }
-            }
+            foreach ($service->getImages() as $image) {
+                if ($uploadedFile = $image->getFile()) {
+                    $newFilename = $uploaderHelper->uploadMissionImage($uploadedFile, null);
 
-            if ($service->getCity()) {
-                $cityExist = $entityManager->getRepository(City::class)->findOneBy(['reference' => $service->getCity()->getReference()]);
+                    $file = new File();
+                    $file->setName($newFilename);
 
-                if (!$cityExist) {
-                    $entityManager->persist($service->getCity());
-                } else {
-                    $service->setCity($cityExist);
+                    $entityManager->persist($file);
+
+                    $image->setFile($file);
                 }
 
-                if ($service->getCountry()) {
-                    $service->getCity()->setCountry($service->getCountry());
-                }
+                $service->addImage($image);
+                $image->setMission($service);
+
+                $entityManager->persist($image);
             }
 
-            if ($service->getCountry()) {
-                $countryExist = $entityManager->getRepository(Country::class)->findOneBy(['reference' => $service->getCountry()->getReference()]);
-
-                if (!$countryExist) {
-                    $entityManager->persist($service->getCountry());
-                } else {
-                    $service->setCountry($countryExist);
-                }
-            }
-
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form->get('image')->getData();
-
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadMissionImage($uploadedFile, null);
-                $service->setImageFile($newFilename);
-            }
 
             $service->setUser($this->getUser());
-
 
             $this->addFlash('success', 'Votre service a été créé avec succès');
 
@@ -109,13 +92,17 @@ class MissionController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_mission_index');
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $errors = FormHelper::getErrorsFromForm($form, true);
         }
-
-
-        return $this->render('admin/mission/new.html.twig', [
-            'mission' => $service,
+        $params = [
             'form' => $form->createView(),
-        ]);
+            'errors' => $errors,
+            'mission' => $service,
+            'show_updaded_image' => !!$errors,
+        ];
+
+        return $this->render('admin/mission/new.html.twig', $params);
     }
 
     /**
@@ -135,7 +122,9 @@ class MissionController extends AbstractController
         Request $request,
         Mission $mission,
         EntityManagerInterface $entityManager,
-        UploaderHelper $uploaderHelper
+        UploaderHelper $uploaderHelper,
+        QualificationService $qualificationService
+
     ): Response
     {
         if (!$mission->isOwner($this->getUser())) {
@@ -146,50 +135,11 @@ class MissionController extends AbstractController
 
         $form->handleRequest($request);
 
+        $errors = null;
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $countryExist = null;
-            if ($mission->getCountry()) {
-                $countryExist = $entityManager->getRepository(Country::class)->findOneBy(['reference' => $mission->getCountry()->getReference()]);
-
-                if (!$countryExist) {
-                    $entityManager->persist($mission->getCountry());
-                } else {
-                    $mission->setCountry($countryExist);
-                }
-            }
-
-            if ($mission->getCity()) {
-                $cityExist = $entityManager->getRepository(City::class)->findOneBy(['reference' => $mission->getCity()->getReference()]);
-
-                if (!$cityExist) {
-                    $entityManager->persist($mission->getCity());
-                } else {
-                    $mission->setCity($cityExist);
-                }
-
-                if ($mission->getCountry()) {
-                    $mission->getCity()->setCountry($mission->getCountry());
-                }
-            }
-
-            if ($mission->getCountry()) {
-                $countryExist = $entityManager->getRepository(Country::class)->findOneBy(['reference' => $mission->getCountry()->getReference()]);
-
-                if (!$countryExist) {
-                    $entityManager->persist($mission->getCountry());
-                } else {
-                    $mission->setCountry($countryExist);
-                }
-            }
-
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form->get('image')->getData();
-
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadMissionImage($uploadedFile, null);
-                $mission->setImageFile($newFilename);
-            }
+            $qualificationService->addExperience($form, 'images');
 
             $mission->setUser($this->getUser());
 
@@ -206,13 +156,20 @@ class MissionController extends AbstractController
             $entityManager->persist($mission);
             $entityManager->flush();
 
+
             return $this->redirectToRoute('admin_mission_index');
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $errors = FormHelper::getErrorsFromForm($form, true);
         }
 
-        return $this->render('admin/mission/edited.html.twig', [
-            'mission' => $mission,
+        $params = [
             'form' => $form->createView(),
-        ]);
+            'errors' => $errors,
+            'mission' => $mission,
+            'show_updaded_image' => !!$errors,
+        ];
+
+        return $this->render('admin/mission/edited.html.twig', $params);
     }
 
     /**

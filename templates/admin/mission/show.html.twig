@@ -1,6 +1,6 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Mission{% endblock %}
+{% block title %}Voir {{ mission.title }}{% endblock %}
 
 {% block body %}
 
@@ -15,7 +15,7 @@
         <div class="container pt-5">
             <div class="row justify-content-center">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card card-primary">
                         <div class="card-header">{{ mission.title }}</div>
                         <div class="card-body">
                             <table class="table table-borderless">

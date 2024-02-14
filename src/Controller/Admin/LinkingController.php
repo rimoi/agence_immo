@@ -23,7 +23,7 @@ class LinkingController extends AbstractController
     public function index(LinkingRepository $linkingRepository): Response
     {
         return $this->render('admin/linking/index.html.twig', [
-            'linkings' => $linkingRepository->findAll(),
+            'linkings' => $linkingRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 

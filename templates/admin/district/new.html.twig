@@ -1,0 +1,60 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Nouvelle quartier{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var $sport = $('#district_city');
+        $sport.change(function() {
+
+            $('.js-loader').addClass('spinner-border')
+
+            var $form = $(this).closest('form');
+
+            var data = {};
+            data[$sport.attr('name')] = $sport.val();
+
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+
+                    $('#district_country').replaceWith(
+                        $(html).find('#district_country')
+                    );
+
+                    $('#district_country').css('width', '100%');
+
+                    $('#district_country').select2();
+
+                    setTimeout(function () {
+                        $('.js-loader').removeClass('spinner-border')
+                    }, 500);
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="py-2 pl-2">
+        <a href="{{ path('admin_district_index') }}" class="btn btn-dark">Retour</a>
+    </div>
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">Nouvelle quartier</div>
+                    <div class="card-body">
+                        {{ include('admin/district/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

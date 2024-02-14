@@ -6,14 +6,17 @@ use App\DTO\CityDTO;
 use App\DTO\CountryDTO;
 use App\Entity\City;
 use App\Entity\Country;
+use App\Entity\District;
 use App\Entity\Mission;
 use App\Entity\Tag;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,49 +37,19 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class ServiceType extends AbstractType
 {
     /**
-     * @var HttpClientInterface
+     * @var EntityManagerInterface
      */
-    private $client;
-    /**
-     * @var ParameterBagInterface
-     */
-    private $parameterBag;
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
+    private $entityManager;
 
     public function __construct(
-        HttpClientInterface $client,
-        ParameterBagInterface $parameterBag,
-        SerializerInterface $serializer
+        EntityManagerInterface $entityManager
     )
     {
-        $this->client = $client;
-        $this->parameterBag = $parameterBag;
-        $this->serializer = $serializer;
+        $this->entityManager = $entityManager;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        /** @var Mission|null $mission */
-        $mission = $options['data'] ?? null;
-        $isEdit = $mission && $mission->getId();
-
-        $imageConstraints = [
-            new Image([
-                'maxSize' => '2M',
-                'maxSizeMessage' => 'Le fichier est trop volumineux. La taille maximale autorisée est de 2Mo'
-            ])
-        ];
-
-        if (!$isEdit || !$mission->getImageFile()) {
-            $imageConstraints[] = new NotNull([
-                'message' => 'Merci de charger une image',
-            ]);
-        }
-
         $builder
             ->add('title', TextType::class, [
                 'attr' => [
@@ -128,65 +101,74 @@ class ServiceType extends AbstractType
                     'style' => "width: 90%",
                 ],
             ])
-            ->add('image', FileType::class, [
-                'required' => false,
-                'label' => false,
-                'mapped' => false,
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'constraints' => $imageConstraints,
-            ])
             ->add('published', CheckboxType::class, [
                 'required' => false,
                 'label' => "📢 Cocher cette case pour publier l'annonce ?",
                 'label_attr' => ['class' => 'switch-custom'],
             ])
+            ->add('city', ChoiceType::class, [
+                'choice_label' => function ($item) {
+                    return is_object($item) ? sprintf('%s ( %s )', $item->getName(), $item->getCountry()->getName()) : $item;
+                },
+                'choice_value' => function ($item) {
+                    return is_object($item) ? $item->getId() : $item;
+                },
+                'required' => true,
+                'placeholder' => 'Choisir une ville...',
+                'choices' => $this->entityManager->getRepository(City::class)->findBy([], ['name' => 'asc']),
+            ])
+            ->add('images', CollectionType::class, [
+                 'label' => false,
+                 'required' => false,
+                 'entry_type' => ImageType::class,
+                 'allow_add' => true,
+                 'prototype' => true,
+                'by_reference' => false,
+                'entry_options' => [
+                     'attr' => ['class' => 'row', 'label' => false],
+                 ],
+                 'allow_delete' => true,
+//                 'delete_empty' => true
+            ])
         ;
 
-        if (!$isEdit) {
 
-            $builder->add('country', ChoiceType::class, [
-                'choices' => $this->listOfCountries(),
+        $formModifier = function (FormInterface $form, ?City $city = null) {
+
+            $form->add('district', ChoiceType::class, [
                 'choice_label' => 'name',
-                'required' => false,
-                'label' => 'Pays',
-                'placeholder' => 'Choisir un pays...',
+                'required' => true,
+                'choice_value' => function ($item) {
+                    return is_object($item) ? $item->getId() : $item;
+                },
+                'placeholder' => 'Choisir une quartier...',
+                'choices' => $this->getDistricts($city),
             ]);
 
-            $formModifier = function (FormInterface $form, ?Country $country) {
+        };
 
-                $form->add('city', ChoiceType::class, [
-                    'choice_label' => 'name',
-                    'required' => false,
-                    'placeholder' => 'Choisir une ville...',
-                    'choices' => $this->getCitiesByCountry($country),
-                ]);
-            };
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                // this would be your entity, i.e. SportMeetup
+                $data = $event->getData();
 
-            $builder->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($formModifier) {
-                    // this would be your entity, i.e. SportMeetup
-                    $data = $event->getData();
+                $formModifier($event->getForm(), $data->getCity());
+            }
+        );
 
-                    $formModifier($event->getForm(), $data->getCountry());
-                }
-            );
+        $builder->get('city')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $city = $event->getForm()->getData();
 
-            $builder->get('country')->addEventListener(
-                FormEvents::POST_SUBMIT,
-                function (FormEvent $event) use ($formModifier) {
-                    // It's important here to fetch $event->getForm()->getData(), as
-                    // $event->getData() will get you the client data (that is, the ID)
-                    $country = $event->getForm()->getData();
-
-                    // since we've added the listener to the child, we'll have to pass on
-                    // the parent to the callback function!
-                    $formModifier($event->getForm()->getParent(), $country);
-                }
-            );
-        }
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback function!
+                $formModifier($event->getForm()->getParent(), $city);
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -196,68 +178,12 @@ class ServiceType extends AbstractType
         ]);
     }
 
-    /** @return Country[] */
-    private function listOfCountries()
+    private function getDistricts(?City $city)
     {
-        $request = $this->client->request('GET', 'https://api.countrystatecity.in/v1/countries', [
-            'headers' => [
-                'X-CSCAPI-KEY' => $this->parameterBag->get('token_api_country'),
-            ]
-        ]);
-
-        if ($request->getStatusCode() !== Response::HTTP_OK) {
-            throw new \Exception('An error occurs while communicating (Methode GET getResults) with API countrystatecity');
-        }
-        /** @var CountryDTO[] $countryDTOs */
-        $countryDTOs = $this->serializer->deserialize($request->getContent(), CountryDTO::class . '[]', 'json');
-
-        $countries = [];
-
-        foreach ($countryDTOs as $countryDTO) {
-            $country = new Country();
-            $country->setName($countryDTO->getName());
-            $country->setIso2($countryDTO->getIso2());
-            $country->setReference($countryDTO->getId());
-
-            $countries[] = $country;
+        if ($city) {
+            return $this->entityManager->getRepository(District::class)->findBy(['city' => $city]);
         }
 
-        return $countries;
-    }
-
-    /** @return City[] */
-    private function getCitiesByCountry(?Country $country)
-    {
-        if (!$country) {
-            return [];
-        }
-
-        $url = sprintf('https://api.countrystatecity.in/v1/countries/%s/cities', $country->getIso2());
-
-        $request = $this->client->request('GET', $url, [
-            'headers' => [
-                'X-CSCAPI-KEY' => $this->parameterBag->get('token_api_country'),
-            ]
-        ]);
-
-        if ($request->getStatusCode() !== Response::HTTP_OK) {
-            throw new \Exception('An error occurs while communicating (Methode GET getResults) with API getCitiesByCountry');
-        }
-
-        /** @var CityDTO[] $citiesDTO */
-        $citiesDTO = $this->serializer->deserialize($request->getContent(), CityDTO::class . '[]', 'json');
-
-        $cities = [];
-
-        foreach ($citiesDTO as $cityDTO) {
-            $city = new City();
-            $city->setName($cityDTO->getName());
-            $city->setReference($cityDTO->getId());
-            $city->setCountry($country);
-
-            $cities[] = $city;
-        }
-
-        return $cities;
+        return [];
     }
 }

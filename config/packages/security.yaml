@@ -57,5 +57,5 @@ security:
         # if you wanted to force EVERY URL to be protected
         #- { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
 
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

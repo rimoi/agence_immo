@@ -70,10 +70,6 @@ class Mission
      */
     private $archived = false;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $imageFile;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="mission", cascade={"persist", "remove"})
@@ -105,11 +101,16 @@ class Mission
      */
     private $city;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=District::class, inversedBy="missions")
+     */
+    private $district;
 
-    public function getImagePath(): string
-    {
-        return UploaderHelper::MISSION_IMAGE.'/'.$this->getImageFile();
-    }
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="mission", cascade={"persist", "remove"})
+     */
+    private $images;
+
 
     public function checkIfCurrentUserHasPublishedReviewForThisMission(?User $user): bool
     {
@@ -145,6 +146,8 @@ class Mission
         $this->tags = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->conversations = new ArrayCollection();
+        $this->districts = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,7 +170,7 @@ class Mission
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -191,7 +194,7 @@ class Mission
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(?float $price): self
     {
         $this->price = $price;
 
@@ -203,7 +206,7 @@ class Mission
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
@@ -227,24 +230,13 @@ class Mission
         return $this->archived;
     }
 
-    public function setArchived(bool $archived): self
+    public function setArchived(?bool $archived): self
     {
         $this->archived = $archived;
 
         return $this;
     }
 
-    public function getImageFile(): ?string
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageFile(string $imageFile): self
-    {
-        $this->imageFile = $imageFile;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Tag[]
@@ -369,6 +361,48 @@ class Mission
     public function setCity(?City $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?District
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(?District $district): self
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getMission() === $this) {
+                $image->setMission(null);
+            }
+        }
 
         return $this;
     }

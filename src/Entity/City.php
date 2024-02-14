@@ -36,19 +36,20 @@ class City
     private $missions;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $reference;
-
-    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=District::class, mappedBy="city", orphanRemoval=true)
+     */
+    private $districts;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
+        $this->districts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,7 +62,7 @@ class City
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -110,20 +111,38 @@ class City
         return $this;
     }
 
-    public function getReference(): ?int
+    public function getCreatedAt()
     {
-        return $this->reference;
+        return $this->createdAt;
     }
 
-    public function setReference(int $reference): self
+    /**
+     * @return Collection|District[]
+     */
+    public function getDistricts(): Collection
     {
-        $this->reference = $reference;
+        return $this->districts;
+    }
+
+    public function addDistrict(District $district): self
+    {
+        if (!$this->districts->contains($district)) {
+            $this->districts[] = $district;
+            $district->setCity($this);
+        }
 
         return $this;
     }
 
-    public function getCreatedAt()
+    public function removeDistrict(District $district): self
     {
-        return $this->createdAt;
+        if ($this->districts->removeElement($district)) {
+            // set the owning side to null (unless already changed)
+            if ($district->getCity() === $this) {
+                $district->setCity(null);
+            }
+        }
+
+        return $this;
     }
 }

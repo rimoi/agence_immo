@@ -136,6 +136,18 @@ sup.cs-notification-message {
     top: -.1em;
 }
 
+.js-toggle-show .form-control {
+    height: auto !important;
+}
+
+#image-fields-list > div {
+    list-style: none;
+    padding: 12px;
+    background-color: #e4e5e7;
+    margin-top: 5px;
+    margin-bottom: 7px;
+}
+
 @media (max-width: 835px) {
     .cs-messagerie {
         margin-left: 1rem !important;

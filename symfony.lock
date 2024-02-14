@@ -207,9 +207,6 @@
     "psr/log": {
         "version": "1.1.0"
     },
-    "psr/simple-cache": {
-        "version": "1.0.1"
-    },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
     },
@@ -248,9 +245,6 @@
             "version": "3.3",
             "ref": "0fa049c19069a65f52c1c181d64be3de672c1504"
         }
-    },
-    "symfony/contracts": {
-        "version": "v1.0.2"
     },
     "symfony/debug": {
         "version": "v4.1.11"
@@ -462,9 +456,6 @@
     "symfony/stopwatch": {
         "version": "v4.1.11"
     },
-    "symfony/templating": {
-        "version": "v4.1.11"
-    },
     "symfony/translation": {
         "version": "3.3",
         "recipe": {
@@ -530,8 +521,5 @@
     },
     "zendframework/zend-code": {
         "version": "3.3.1"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.1"
     }
 }

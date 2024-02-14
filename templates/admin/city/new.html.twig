@@ -1,0 +1,22 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Nouvelle ville{% endblock %}
+
+{% block body %}
+
+    <div class="py-2 pl-2">
+        <a href="{{ path('admin_city_index') }}" class="btn btn-dark">Retour</a>
+    </div>
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">Nouvelle ville</div>
+                    <div class="card-body">
+                        {{ include('admin/city/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
