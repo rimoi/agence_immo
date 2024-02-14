@@ -84,23 +84,23 @@
         <div class="row js-genus-scientist-item">
     {% endif %}
 
-{#    <div class="col-12 col-sm-4 my-1">#}
-{#        {{ form_errors(experience.label) }}#}
-{#        {{ form_widget(experience.label) }}#}
-{#    </div>#}
+    <div class="col-12 col-sm-3 my-1">
+        {{ form_errors(experience.label) }}
+        {{ form_widget(experience.label) }}
+    </div>
     {% if 'file' in experience|keys %}
 
-        <div class="col-12 col-sm-10 my-1 js-macro-upload-image">
+        <div class="col-12 col-sm-7 my-1 js-macro-upload-image">
 
            <div class="d-flex">
                {% if experience.vars.value.file|default
                %}
                    <div class="px-2">
-                       <img src="{{ experience.vars.value.file.imagePath|imagine_filter('thumbnail_small') }}" class="shop-image img-fluid" alt="Image non disponible">
+                       <img src="{{ experience.vars.value.file.imagePath|imagine_filter('thumbnail_small') }}" class="shop-image img-fluid rounded-circle" alt="Image non disponible">
                    </div>
                {% endif %}
 
-               {{ form_row(experience.file, {attr: {class: 'align-items-center'}}) }}
+               {{ form_row(experience.file, {attr: {class: 'pt-2'}}) }}
            </div>
         </div>
     {% endif %}

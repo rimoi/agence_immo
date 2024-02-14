@@ -16,15 +16,15 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('label', TextType::class, [
-//                'attr' => [
-//                    'placeholder' => "Label de l'image",
-//                    'class' => 'col-12'
-//                ],
-//                'label' => false,
-//                'mapped' => true,
-//                'required' => false,
-//            ])
+            ->add('label', TextType::class, [
+                'attr' => [
+                    'placeholder' => "Label de l'image",
+                    'class' => 'col-12'
+                ],
+                'label' => false,
+                'mapped' => true,
+                'required' => false,
+            ])
             ->add('file', FileTypeBase::class, [
                 'data_class' => null,
                 'required' => false,
