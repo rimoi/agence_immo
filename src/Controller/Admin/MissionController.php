@@ -178,8 +178,11 @@ class MissionController extends AbstractController
     public function delete(Request $request, Mission $mission, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$mission->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($mission);
+
+            $mission->setArchived(true);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Votre annonce a bien été archivé !');
         }
 
         return $this->redirectToRoute('admin_mission_index');

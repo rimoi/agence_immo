@@ -111,26 +111,6 @@ class Mission
      */
     private $images;
 
-
-    public function checkIfCurrentUserHasPublishedReviewForThisMission(?User $user): bool
-    {
-        if (!$user) {
-            return false;
-        }
-
-        foreach ($this->reviews as $review) {
-            if ($review->getUser() == $user) {
-                return true;
-            }
-        }
-
-        if ($user && $user->getId() === $this->user->getId()) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function isOwner(?User $user): bool
     {
         if ($user && $user->getId() === $this->user->getId()) {

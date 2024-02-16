@@ -64,7 +64,10 @@ class QualificationService
             ) {
                 $newFile = null;
                 if ($formExp->getData()->getId()) {
-                    $newFile =  $formExp->getData()->getFile();
+
+                    if (!($newFile = $formExp->getData()->getFile())) {
+                        $newFile = $this->entityManager->getRepository(File::class)->find($formExp->getData()->getId());
+                    }
                 }
 
                 $filename = $this->fileUploader->uploadMissionImage($file,
