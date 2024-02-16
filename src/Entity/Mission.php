@@ -47,6 +47,31 @@ class Mission
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isFurnished = true;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $surface;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbRoom;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbPiece;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbSalleBain;
+
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -383,6 +408,80 @@ class Mission
                 $image->setMission(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getIsFurnished(): ?bool
+    {
+        return $this->isFurnished;
+    }
+
+    public function setIsFurnished(?bool $isFurnished): self
+    {
+        $this->isFurnished = $isFurnished;
+
+        return $this;
+    }
+
+    public function getSurface(): ?float
+    {
+        return $this->surface;
+    }
+
+    public function setSurface(?float $surface): self
+    {
+        $this->surface = $surface;
+
+        return $this;
+    }
+
+    public function getNbRoom(): ?int
+    {
+        return $this->nbRoom;
+    }
+
+    public function setNbRoom(?int $nbRoom): self
+    {
+        $this->nbRoom = $nbRoom;
+
+        return $this;
+    }
+
+    public function getNbPiece(): ?int
+    {
+        return $this->nbPiece;
+    }
+
+    public function setNbPiece(?int $nbPiece): self
+    {
+        $this->nbPiece = $nbPiece;
+
+        return $this;
+    }
+
+    public function getNbSalleBain(): ?int
+    {
+        return $this->nbSalleBain;
+    }
+
+    public function setNbSalleBain(?int $nbSalleBain): self
+    {
+        $this->nbSalleBain = $nbSalleBain;
 
         return $this;
     }

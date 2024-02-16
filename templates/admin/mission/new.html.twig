@@ -77,6 +77,124 @@
 
                             <div class="mb-4">
                                 <h6 class="font-weight-bold">
+                                    Aménagement<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Votre bien est-il meublé ?
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.isFurnished) }}
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">🏡</span>
+                                        </div>
+                                        {{ form_widget(form.isFurnished, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Surfaces<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Superficie de votre bien ?
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.surface) }}
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">
+                                                📏
+                                            </span>
+                                        </div>
+                                        {{ form_widget(form.surface, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Chambres<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Nombre de chambres dans votre bien ?
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.nbRoom) }}
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">
+                                                🔢
+                                            </span>
+                                        </div>
+                                        {{ form_widget(form.nbRoom, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Pièces<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Nombre de pièces dans votre bien ?
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.nbPiece) }}
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">
+                                                🏘
+                                            </span>
+                                        </div>
+                                        {{ form_widget(form.nbPiece, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Salle de bain<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Nombre de salles de bain y a-t-il dans votre bien ?
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.nbSalleBain) }}
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">
+                                                🛀
+                                            </span>
+                                        </div>
+                                        {{ form_widget(form.nbSalleBain, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
                                     Prix<sup class="text-danger">*</sup>
                                 </h6>
                                 <p class="text-muted">

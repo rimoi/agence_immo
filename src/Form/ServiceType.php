@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -76,7 +77,45 @@ class ServiceType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('price', IntegerType::class, [
+            ->add('isFurnished', ChoiceType::class, [
+                'label' => false,
+                'choices' => [
+                    '' => '',
+                    'Meublé' => true,
+                    'Non meublé' => false,
+                ],
+                'required' => true,
+                'attr' => ['class' => 'border-0']
+            ])
+            ->add('surface', NumberType::class, [
+                'label' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le champ surface est réquis',
+                    ]),
+                    new GreaterThan([
+                        'value' => 5,
+                        'message' => 'La surface doit être supérieur strictement à "5 m²"'
+                    ])
+                ],
+                'attr' => ['class' => 'border-0']
+            ])
+            ->add('nbRoom', IntegerType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['class' => 'border-0']
+            ])
+            ->add('nbPiece', IntegerType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['class' => 'border-0']
+            ])
+            ->add('nbSalleBain', IntegerType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['class' => 'border-0']
+            ])
+            ->add('price', NumberType::class, [
                 'label' => false,
                 'constraints' => [
                     new NotBlank([
