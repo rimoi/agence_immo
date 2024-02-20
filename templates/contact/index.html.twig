@@ -9,13 +9,11 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <section class="contact-section" id="section_5">
+    <div class="container mt-5">
+        <section class="featured-section" id="section_5">
                 <div class="row">
 
                     <div class="col-lg-12 col-12">
-{#                        <small class="section-small-title">Ask anything.</small>#}
-
                         <h2 class="mb-4">Contact</h2>
                     </div>
 
@@ -103,37 +101,58 @@
                     </div>
 
                     <div class="col-lg-6 col-12 mt-5 mt-lg-0">
-                        <div class="custom-block">
+                        <div class="custom-block featured-custom-block">
+                            <h2 class="mt-2 mb-4">Heures d'ouverture</h2>
+
+                            <div class="d-flex">
+                                <i class="featured-icon bi-clock me-3 align-self-center"></i>
+
+                                <div>
+                                    <p class="mb-2">
+                                        Lundi - Samedi ~
+                                        <strong class="d-inline">
+                                            7:00 - 22:00
+                                        </strong>
+                                    </p>
+
+                                    <p class="mb-2">
+                                        Dimanche &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~
+                                        <strong class="d-inline">
+                                             7:00 - 21:00
+                                        </strong>
+                                    </p>
+
+{#                                    <p>Sunday ~ Closed</p>#}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-block mt-5">
 
                             <h3 class="text-white mb-2">Adresse</h3>
 
-                            <p class="text-white mb-2">
+                            <p class="text-dark mb-2">
                                 <i class="contact-icon bi-geo-alt me-1"></i>
 
-                                3 rue gustave simon, 54000 Nancy
+                                Careffour bana blanc
                             </p>
 
                             <h3 class="text-white mt-3 mb-2">Contact</h3>
 
-                            <div class="d-flex flex-wrap">
-{#                                <p class="text-white mb-2 me-4">#}
-{#                                    <i class="contact-icon bi-telephone me-1"></i>#}
+                            <div>
 
-{#                                    <a href="tel: 090-080-0760" class="text-white">#}
-{#                                        06-05-#}
-{#                                    </a>#}
-{#                                </p>#}
+                                {% for contact in contacts %}
+                                    <p class="text-dark">
+                                        <i class="{{ contact.classe }} me-1"></i>
 
-                                <p class="text-white">
-                                    <i class="contact-icon bi-envelope me-1"></i>
 
-                                    <a href="mailto:contact@mission-c2c.com" class="text-white">
-                                        contact@mission-c2c.com
-                                    </a>
-                                </p>
+                                        <a href="tel:{{ contact.phone }}" class="text-dark">
+                                            {{ contact.phone }}
+                                        </a>
+                                    </p>
+                                {% endfor %}
                             </div>
 
-{#                            <iframe class="google-map mt-2" src="" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>#}
+                            {#                            <iframe class="google-map mt-2" src="" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>#}
                             <iframe class="google-map mt-2" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10535.503986440684!2d6.169991921154652!3d48.688735440951255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4794986d50f79ed5%3A0x596b44bd367379f7!2s3%20Rue%20Gustave%20Simon%2C%2054000%20Nancy!5e0!3m2!1sfr!2sfr!4v1695308207945!5m2!1sfr!2sfr" ></iframe>
                         </div>
                     </div>

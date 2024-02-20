@@ -33,6 +33,7 @@
                                             Mise à jour</th>
                                         <th>
                                             Archivé ?</th>
+                                        <th>Nombre de J'aime</th>
                                         <th>actions</th>
                                     </tr>
                                     </thead>
@@ -58,6 +59,11 @@
                                                     <span class="badge badge-pill badge-success">Oui</span>
                                                 {% else %}
                                                     <span class="badge badge-pill badge-secondary">Non</span>
+                                                {% endif %}
+                                            </td>
+                                            <td align="center">
+                                                {% if mission.likes|length %}
+                                                    {{ mission.likes|length }} <i class="fa-regular fa-heart text-danger"></i>
                                                 {% endif %}
                                             </td>
                                             <td>

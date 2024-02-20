@@ -221,6 +221,10 @@
                                     {{ form_label(form.images, "Photos de l'annonce : ") }}
                                     {{ form_errors(form.images) }}
 
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="background-color: #f3e4b5">
+                                        Nous recommandons de charger des images au format <strong>1920x1086</strong> px, si possible.
+                                    </div>
+
                                     <div id="image-fields-list"
                                          data-prototype="{{ upload.printExperience(form.images.vars.prototype)|e('html_attr')}}"
                                          data-widget-tags="{{ '<div class="row js-upload-images"></div>'|e }}"

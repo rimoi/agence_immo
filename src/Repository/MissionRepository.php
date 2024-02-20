@@ -6,6 +6,7 @@ use App\Entity\Mission;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Mission|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,7 +23,8 @@ class MissionRepository extends ServiceEntityRepository
 
     public function getMissiosQueryBuilder(
         ?string $term,
-        ?string $prices
+        ?string $prices,
+        ?string $ip = null
     ): QueryBuilder
     {
         $qb = $this->createQueryBuilder('m')
@@ -31,6 +33,12 @@ class MissionRepository extends ServiceEntityRepository
             ->setParameter('archived', false)
             ->setParameter('published', true)
             ->orderBy('m.id', 'DESC');
+
+        if ($ip) {
+            $qb ->addSelect('l')
+                ->leftJoin('m.likes', 'l', JOIN::WITH, 'l.ip = :ip')
+                ->setParameter('ip', $ip);
+        }
 
         if ($term) {
             $qb->andWhere('m.title LIKE :term')

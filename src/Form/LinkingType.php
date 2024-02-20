@@ -62,7 +62,7 @@ class LinkingType extends AbstractType
                 'required' => true,
                 'disabled' => $type !== LinkingTypeConstant::CONTACT,
                 'attr' => [
-                    'placeholder' => '36 11 19 24',
+                    'placeholder' => '+22236111924',
                     'class' => 'mb-4 form-control',
                 ],
                 'label_attr' => ['class' => 'mt-2'],

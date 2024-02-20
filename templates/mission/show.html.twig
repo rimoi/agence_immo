@@ -7,24 +7,20 @@
 
 {% block stylesheets %}
     {{ parent() }}
-
-    <link href="{{ asset('./assets/css/owl.carousel.min.css') }}" rel="stylesheet">
-
-{#    #}
-{#    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>#}
-{#    // Add the new slick-theme.css if you want the default styling#}
-{#    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>#}
+    <link href="{{ asset('./assets/splide/dist/css/splide.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 
 {% block javascripts %}
     {{ parent() }}
 
-{#    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>#}
-{#    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>#}
-
-    <script src="{{ asset('./assets/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('./assets/js/custom_review.js') }}"></script>
+    <script src="{{ asset('./assets/splide/dist/js/splide.min.js') }}"></script>
+    <script>
+        document.addEventListener( 'DOMContentLoaded', function() {
+            var splide = new Splide( '.splide' );
+            splide.mount();
+        } );
+    </script>
 {% endblock %}
 
 
@@ -47,6 +43,22 @@
         <div class="container">
             <div class="row">
 
+                <div class="col-lg-6 col-12">
+                    <div class="shop-image-wrap">
+                        <section class="splide" aria-label="Splide Basic HTML Example">
+                            <div class="splide__track">
+                                <ul class="splide__list">
+                                    {% for image in mission.images %}
+                                        <li class="splide__slide">
+                                            <img src="{{ image.file.imagePath|imagine_filter('thumbnail_big') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
                 <div class="col-lg-6 col-12 m-auto">
 
                     <div class="col-12 custom-block shop-detail-custom-block">
@@ -55,25 +67,18 @@
                         {{ mission.content|raw }}
                     </div>
 
-{#                    <div class="col-12">#}
-{#                        {% if show_info %}#}
-{#                            {% include 'mission/_show_info_contact.html.twig' %}#}
-{#                        {% else %}#}
-{#                            <div>#}
-{#                                {% include 'mission/_form_contact.html.twig' %}#}
-{#                            </div>#}
-{#                        {% endif %}#}
-{#                    </div>#}
                     <div class="col-12">
-                        {% include 'mission/_show_info_contact_messagerie.html.twig' %}
+                        {% if show_info %}
+                            {% include 'mission/_show_info_contact.html.twig' %}
+                        {% else %}
+                            <div>
+                                {% include 'mission/_form_contact.html.twig' %}
+                            </div>
+                        {% endif %}
                     </div>
-
-                </div>
-
-                <div class="col-lg-6 col-12">
-                    <div class="shop-image-wrap">
-                        <img src="{{ mission.imagePath|imagine_filter('thumbnail_big') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
-                    </div>
+                    {#                    <div class="col-12">#}
+                    {#                        {% include 'mission/_show_info_contact_messagerie.html.twig' %}#}
+                    {#                    </div>#}
                 </div>
 
             </div>

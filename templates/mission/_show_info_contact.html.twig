@@ -13,32 +13,21 @@
                         <p class="section-small-title mt-1 text-center">{{ mission.user.nickname }}</p>
                     </div>
                     <div class="ml-4">
-                        <h4 class="mt-2 mb-4">Contact Freelanceur</h4>
+                        <h4 class="mt-2 mb-4">Contact</h4>
 
                         <div class="d-flex">
 
                             <div>
-                                {% if mission.user.phone %}
+
+                                {% for contact in contacts %}
                                     <p class="mb-2">
-                                        <i class="contact-icon bi-telephone me-1"></i>
-                                        Téléphone :
+                                        <i class="{{ contact.classe }} me-1 text-danger"></i>
+                                        {{ contact.label|capitalize }} :
                                         <strong class="d-inline">
-                                            <a href="tel:{{ mission.user.phone }}">{{ mission.user.phone }}</a>
+                                            <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
                                         </strong>
                                     </p>
-                                {% endif %}
-
-                                <p class="mb-2">
-                                    <i class="contact-icon bi-envelope me-1"></i>
-
-                                    Email :
-                                    <strong class="d-inline">
-                                        <a href="mailto:{{ mission.user.email }}">{{ mission.user.email }}</a>
-                                    </strong>
-                                </p>
-{#                                {% if mission.user.phone %}#}
-{#                                    <p class="text-muted mt-3 small">*Veuillez svp contacter pendant les heures d'appel (entre 8-19h).</p>#}
-{#                                {% endif %}#}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

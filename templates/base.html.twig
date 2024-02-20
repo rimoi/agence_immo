@@ -32,7 +32,12 @@
         {% endblock %}
     </head>
 
-    <body>
+    <body style="
+        {#background-image: url({{ asset('assets/images/living-room.jpg') }});#}
+        {#background-repeat: no-repeat;#}
+        {#background-position: center;#}
+        {#background-size: cover;#}
+        ">
         {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
             <div class="alert alert-warning" style="margin-bottom: 0;">
                 Vous êtes actuellement switcher en tant que :

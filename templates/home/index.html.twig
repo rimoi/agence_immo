@@ -24,29 +24,61 @@
                 {% for mission in missions %}
                     <div class="col-lg-4 col-12">
                         <div class="shop-thumb">
+
                             <div class="shop-image-wrap">
+
                                 <a href="{{ path('mission_show', { slug: mission.slug }) }}">
-                                    <img class="shop-image img-fluid" src="{{ mission.imagePath|imagine_filter('thumbnail_homepage') }}" alt="Image {{ mission.title }}">
+                                    <img class="shop-image img-fluid" src="{{ mission.images.first.file.imagePath|imagine_filter('thumbnail_homepage') }}" alt="Image {{ mission.title }}">
 {#                                    <img src="{{ asset('./assets/images/shop/green-sofa-white-living-room-with-blank-table-mockup.jpg') }}" class="shop-image img-fluid" alt="">#}
                                 </a>
 
                                 <div class="shop-icons-wrap">
                                     <div class="shop-icons d-flex flex-column align-items-center">
-                                        {% if mission.user.avatar %}
-                                            <img src="{{ mission.user.imagePath|imagine_filter('thumbnail_small') }}" class="rounded-circle" alt="Logo {{ mission.user.nickname }}">
-                                        {% else %}
-                                            <i class="fa fa-user fa-3x rounded-circle" ></i>
-                                        {% endif %}
-
 {#                                        <a href="#" class="shop-icon bi-heart"></a>#}
+                                        <span
+                                            class="shop-icon cs-cursor {{ mission.isLiked(app.request.clientIp) ? 'bi-heart-fill' : 'bi-heart' }}"
+                                            data-url="{{ path('app_like') }}"
+                                            data-mission-id="{{ mission.id }}">
+
+                                        </span>
 
 {#                                        <a href="#" class="shop-icon bi-bookmark"></a>#}
                                     </div>
-
                                     <p class="shop-pricing mb-0 mt-3">
                                         <span class="badge custom-badge">{{ mission.price }} €</span>
                                     </p>
+
                                 </div>
+                                <div class="homepage-cs-tag-ad d-flex justify-content-between">
+                                    {% if mission.nbPiece %}
+                                        <div>
+                                            <span class="badge rounded-pill btn-immo">{{ mission.nbPiece }} Pièce{{ mission.nbPiece > 1 ? 's' }}
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                    {% if mission.nbRoom %}
+                                        <div>
+                                            <span class="badge rounded-pill btn-immo">{{ mission.nbRoom }} Chambre{{ mission.nbRoom > 1 ? 's' }}
+                                            </span>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if mission.nbSalleBain %}
+                                        <div>
+                                            <span class="badge rounded-pill btn-immo">{{ mission.nbSalleBain }} Salle{{ mission.nbSalleBain > 1 ? 's' }} de bain
+                                            </span>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if mission.surface %}
+                                        <div>
+                                            <span class="badge rounded-pill btn-immo">Surface : {{ mission.surface }} m²
+                                            </span>
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+
 
                                 <div class="shop-btn-wrap">
                                     <a href="{{ path('mission_show', { slug: mission.slug }) }}" class="shop-btn custom-btn btn d-flex align-items-center align-items-center" title="Voir {{ mission.title }}">Plus d'infos</a>

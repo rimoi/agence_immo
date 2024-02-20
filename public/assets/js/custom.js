@@ -107,4 +107,29 @@ $(function () {
 
         $(this).closest('.js-parent-element').addClass('d-none');
     });
+
+    $('.cs-cursor').on('click', function () {
+        // $(this).closest('.js-form-like').trigger('submit');
+
+        let missionId = $(this).data("missionId");
+        let url = $(this).data("url");
+
+        let $element = $(this);
+console.log(missionId, url, )
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {missionId: missionId},
+            dataType: 'json',
+            success: function (data) {
+                if (data.enable) {
+                   $element.removeClass('bi-heart');
+                   $element.addClass('bi-heart-fill');
+                } else {
+                    $element.removeClass('bi-heart-fill');
+                    $element.addClass('bi-heart');
+                }
+            }
+        })
+    });
 });

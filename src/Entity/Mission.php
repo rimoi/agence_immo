@@ -136,10 +136,26 @@ class Mission
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="mission")
+     */
+    private $likes;
+
     public function isOwner(?User $user): bool
     {
         if ($user && $user->getId() === $this->user->getId()) {
             return true;
+        }
+
+        return false;
+    }
+
+    public function isLiked(string $ip): bool
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getIp() === $ip) {
+                return true;
+            }
         }
 
         return false;
@@ -153,6 +169,7 @@ class Mission
         $this->conversations = new ArrayCollection();
         $this->districts = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -482,6 +499,36 @@ class Mission
     public function setNbSalleBain(?int $nbSalleBain): self
     {
         $this->nbSalleBain = $nbSalleBain;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Like>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getMission() === $this) {
+                $like->setMission(null);
+            }
+        }
 
         return $this;
     }

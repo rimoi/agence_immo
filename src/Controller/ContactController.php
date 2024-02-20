@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Constant\LinkingTypeConstant;
 use App\Constant\UserConstant;
 use App\Entity\Contact;
 use App\Entity\User;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
+use App\Repository\LinkingRepository;
 use App\Service\NotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +27,8 @@ class ContactController extends AbstractController
     public function index(
         Request $request,
         EntityManagerInterface $entityManager,
-        NotificationService $notificationService
+        NotificationService $notificationService,
+        LinkingRepository $linkingRepository
     ): Response
     {
         $contact =  new Contact();
@@ -58,6 +61,7 @@ class ContactController extends AbstractController
 
         return $this->render('contact/index.html.twig', [
             'form' => $form->createView(),
+            'contacts' => $linkingRepository->findBy(['scope' => LinkingTypeConstant::CONTACT])
         ]);
     }
 }

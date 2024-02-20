@@ -42,23 +42,23 @@
 
 
                 {% if app.user %}
-                    <li class="nav-item  mr-3 cs-messagerie mt-sm-3 position-relative">
-                        <a class="btn btn-icon btn-transparent-dark"
-                           href="{{ path('conversations') }}">
-                            <div class="d-flex">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                     class="feather feather-mail {{ getMessageNonLu(app.user)|length > 0 ? 'text-danger' }}">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                                <span class="cs-messagerie-label ml-2"> Messagerie</span>
-                                {% if getMessageNonLu(app.user)|length > 0 %}
-                                    <sup class="text-danger cs-notification-message">{{ getMessageNonLu(app.user)|length }}</sup>
-                                {% endif %}
-                            </div>
-                        </a>
-                    </li>
+{#                    <li class="nav-item  mr-3 cs-messagerie mt-sm-3 position-relative">#}
+{#                        <a class="btn btn-icon btn-transparent-dark"#}
+{#                           href="{{ path('conversations') }}">#}
+{#                            <div class="d-flex">#}
+{#                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"#}
+{#                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"#}
+{#                                     class="feather feather-mail {{ getMessageNonLu(app.user)|length > 0 ? 'text-danger' }}">#}
+{#                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>#}
+{#                                    <polyline points="22,6 12,13 2,6"></polyline>#}
+{#                                </svg>#}
+{#                                <span class="cs-messagerie-label ml-2"> Messagerie</span>#}
+{#                                {% if getMessageNonLu(app.user)|length > 0 %}#}
+{#                                    <sup class="text-danger cs-notification-message">{{ getMessageNonLu(app.user)|length }}</sup>#}
+{#                                {% endif %}#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </li>#}
 
 
                     <li class="nav-item dropdown">

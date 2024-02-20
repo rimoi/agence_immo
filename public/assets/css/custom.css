@@ -148,6 +148,23 @@ sup.cs-notification-message {
     margin-bottom: 7px;
 }
 
+.homepage-cs-tag-ad {
+    z-index: 1000;
+    margin-top: -32px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.btn-immo {
+    background-color: var(--whatsapp-color) !important;
+    color: white !important;
+}
+
+.cs-cursor {
+    cursor: pointer;
+}
+
+
 @media (max-width: 835px) {
     .cs-messagerie {
         margin-left: 1rem !important;
