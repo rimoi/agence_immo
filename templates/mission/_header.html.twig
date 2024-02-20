@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-7 col-md-8 col-12 d-flex">
+            <div class="col-lg-10 col-md-10 col-12 d-flex">
 
                 {% if mission.isOwner(app.user) %}
                     <p class="shop-detail-bar-wrap d-flex flex-wrap mb-0">
@@ -19,38 +19,54 @@
                     <strong class="shop-pricing-text">{{ mission.price }} €</strong>
                 </p>
 
-                {% if mission.tags.count %}
-                    <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-5 ms-4 mb-0 d-none d-sm-block">
-                        <span> &nbsp;&nbsp; | &nbsp; &nbsp; &nbsp;</span>
-                        <span class="me-2">Catégories :</span>
+                <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-5 ms-4 mb-0 d-none d-sm-block justify-content-between">
+                    <span> &nbsp; | &nbsp; &nbsp; &nbsp;</span>
+{#                        <span class="me-2">Catégories :</span>#}
 
-                        {% for tag in mission.tags %}
-                            <a href="#">
-                                <span class="badge rounded-pill bg-success">{{ tag.name }} </span>
-                                &nbsp;
-                            </a>
-                        {% endfor %}
+                    {% if mission.nbPiece %}
+                        <div class="mx-1">
+                                            <span class="badge rounded-pill btn-immo">{{ mission.nbPiece }} Pièce{{ mission.nbPiece > 1 ? 's' }}
+                                            </span>
+                        </div>
+                    {% endif %}
+                    {% if mission.nbRoom %}
+                        <div class="mx-1">
+                                            <span class="badge rounded-pill btn-immo">{{ mission.nbRoom }} Chambre{{ mission.nbRoom > 1 ? 's' }}
+                                            </span>
+                        </div>
+                    {% endif %}
+
+                    {% if mission.nbSalleBain %}
+                        <div class="mx-1">
+                                            <span class="badge rounded-pill btn-immo">{{ mission.nbSalleBain }} Salle{{ mission.nbSalleBain > 1 ? 's' }} de bain
+                                            </span>
+                        </div>
+                    {% endif %}
+
+                    {% if mission.surface %}
+                        <div class="ml-1">
+                                            <span class="badge rounded-pill btn-immo">Surface : {{ mission.surface }} m²
+                                            </span>
+                        </div>
+                    {% endif %}
                     </p>
-                {% endif %}
+                {% if mission.district %}
 
-                {% if mission.country %}
-
-                    <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-5 ms-4 mb-0 d-none d-sm-block">
-                        <span> &nbsp;&nbsp; | &nbsp; &nbsp; &nbsp;</span>
+                    <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-3 ms-4 mb-0 d-none d-sm-block">
+                        <span> &nbsp;&nbsp; | &nbsp; &nbsp;</span>
                         <span class="me-2">Localisation :</span>
 
-                        <strong class="shop-pricing-text">
-                            {{ mission.country.name }}
-
-                            {% if mission.city %}
-                                ( {{ mission.city.name }} )
-                            {% endif %}
-                        </strong>
+                        <small class="shop-pricing-text text-success">
+                            {{ mission.district.name }} - <b>{{ mission.city.name }}</b>
+{#                            {% if mission.city %}#}
+{#                                ( {{ mission.city.country.name }} )#}
+{#                            {% endif %}#}
+                        </small>
                     </p>
                 {% endif %}
             </div>
 
-            <div class="col-lg-5 col-md-4 col-12 social-share d-flex align-items-center ms-lg-auto mt-3 mt-lg-0 mt-md-0">
+            <div class="col-lg-2 col-md-2 col-12 social-share d-flex align-items-center ms-lg-auto mt-3 mt-lg-0 mt-md-0">
                 <p class="mb-0 me-3 ms-lg-auto ms-md-auto">Publié :</p>
 
                 <ul class="social-icon">

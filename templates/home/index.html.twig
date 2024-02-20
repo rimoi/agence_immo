@@ -29,20 +29,16 @@
 
                                 <a href="{{ path('mission_show', { slug: mission.slug }) }}">
                                     <img class="shop-image img-fluid" src="{{ mission.images.first.file.imagePath|imagine_filter('thumbnail_homepage') }}" alt="Image {{ mission.title }}">
-{#                                    <img src="{{ asset('./assets/images/shop/green-sofa-white-living-room-with-blank-table-mockup.jpg') }}" class="shop-image img-fluid" alt="">#}
                                 </a>
 
                                 <div class="shop-icons-wrap">
                                     <div class="shop-icons d-flex flex-column align-items-center">
-{#                                        <a href="#" class="shop-icon bi-heart"></a>#}
                                         <span
                                             class="shop-icon cs-cursor {{ mission.isLiked(app.request.clientIp) ? 'bi-heart-fill' : 'bi-heart' }}"
                                             data-url="{{ path('app_like') }}"
                                             data-mission-id="{{ mission.id }}">
 
                                         </span>
-
-{#                                        <a href="#" class="shop-icon bi-bookmark"></a>#}
                                     </div>
                                     <p class="shop-pricing mb-0 mt-3">
                                         <span class="badge custom-badge">{{ mission.price }} €</span>

@@ -7,7 +7,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('./assets/splide/dist/css/splide.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('./assets/splide/dist/css/themes/splide-skyblue.min.css') }}" rel="stylesheet">
 
     <style>
         .thumbnails {
@@ -46,7 +46,7 @@
     <script>
         document.addEventListener( 'DOMContentLoaded', function() {
             var splide = new Splide( '#main-carousel', {
-                pagination: false,
+                pagination: true,
                 type: 'loop',
                 start: $('.js-counter').data('counter')
             } );
@@ -105,7 +105,10 @@
                             {% endif %}
 
                             <li class="splide__slide">
-                                <img src="{{ image.file.imagePath|imagine_filter('thumbnail_very_big') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
+                                <figure>
+                                    <img src="{{ image.file.imagePath|imagine_filter('thumbnail_very_big') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
+                                    <figcaption class="text-center py-3"> {{ image.label }}</figcaption>
+                                </figure>
                             </li>
                         {% endfor %}
                     </ul>
