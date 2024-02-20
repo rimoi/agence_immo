@@ -8,6 +8,7 @@ use App\Entity\Linking;
 use App\Entity\Mission;
 use App\Form\ShowInfoFreelanceurType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
@@ -43,6 +44,17 @@ class MissionController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/{id}/image/{missionSlug}", name="front_mission_consulte_image")
+     * @ParamConverter("mission", options={"mapping": {"missionSlug": "slug"}})
+     */
+    public function showModal(\App\Entity\File $file, Mission $mission): Response
+    {
+        return $this->render('mission/consulter.html.twig', [
+            'file' => $file,
+            'mission' => $mission
+        ]);
+    }
 
     /**
      * @Route("/{id}/consuler", name="front_mission_consulter")

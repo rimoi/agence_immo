@@ -1,0 +1,123 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mission{% endblock %}
+{% block description %}
+    {{ mission.content|truncate(200)|raw }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('./assets/splide/dist/css/splide.min.css') }}" rel="stylesheet">
+
+    <style>
+        .thumbnails {
+            display: flex;
+            margin: 1rem auto 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .thumbnail {
+            width: 70px;
+            height: 70px;
+            overflow: hidden;
+            list-style: none;
+            margin: 0 0.2rem;
+            cursor: pointer;
+            opacity: 0.3;
+        }
+
+        .thumbnail.is-active {
+            opacity: 1;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('./assets/splide/dist/js/splide.min.js') }}"></script>
+    <script>
+        document.addEventListener( 'DOMContentLoaded', function() {
+            var splide = new Splide( '#main-carousel', {
+                pagination: false,
+                type: 'loop',
+                start: $('.js-counter').data('counter')
+            } );
+
+            var thumbnails = document.getElementsByClassName( 'thumbnail' );
+            var current;
+
+            for ( var i = 0; i < thumbnails.length; i++ ) {
+                initThumbnail( thumbnails[ i ], i );
+            }
+
+            function initThumbnail( thumbnail, index ) {
+                thumbnail.addEventListener( 'click', function () {
+                    splide.go( index );
+                } );
+            }
+
+            splide.on( 'mounted move', function () {
+                var thumbnail = thumbnails[ splide.index ];
+
+                if ( thumbnail ) {
+                    if ( current ) {
+                        current.classList.remove( 'is-active' );
+                    }
+
+                    thumbnail.classList.add( 'is-active' );
+                    current = thumbnail;
+                }
+            } );
+
+            splide.mount();
+        });
+    </script>
+{% endblock %}
+
+ {% block _header '' %}
+ {% block _footer '' %}
+
+
+{% block body %}
+    <div class="container">
+        <div class="text-end mb-2">
+            <a href="{{ path('mission_show', {slug: mission.slug}) }}" class="btn btn-dark">
+                <span class="fas fa-xmark"></span>
+                FERMER
+            </a>
+        </div>
+        <div>
+            <section id="main-carousel" class="splide" aria-label="Splide Basic HTML Example">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        {% for image in mission.images %}
+
+                            {% if image.file.id == file.id %}
+                                <div class="js-counter" data-counter="{{ loop.index0 }}"></div>
+                            {% endif %}
+
+                            <li class="splide__slide">
+                                <img src="{{ image.file.imagePath|imagine_filter('thumbnail_very_big') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <ul id="thumbnails" class="thumbnails">
+                {% for image in mission.images %}
+                    <li class="thumbnail">
+                        <img src="{{ image.file.imagePath|imagine_filter('thumbnail_medium') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

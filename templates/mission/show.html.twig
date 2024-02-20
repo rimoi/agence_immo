@@ -8,6 +8,19 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('./assets/splide/dist/css/splide.min.css') }}" rel="stylesheet">
+
+{#    <style>#}
+{#        .my-carousel-progress {#}
+{#            background: #ccc;#}
+{#        }#}
+
+{#        .my-carousel-progress-bar {#}
+{#            background: #0d0e0c;#}
+{#            height: 2px;#}
+{#            transition: width 400ms ease;#}
+{#            width: 0;#}
+{#        }#}
+{#    </style>#}
 {% endblock %}
 
 
@@ -17,7 +30,32 @@
     <script src="{{ asset('./assets/splide/dist/js/splide.min.js') }}"></script>
     <script>
         document.addEventListener( 'DOMContentLoaded', function() {
-            var splide = new Splide( '.splide' );
+            var splide = new Splide('.splide', {
+                type: 'loop',
+                snap: true,
+                width: '100%',
+                // height: '80%',
+                gap: '20px',
+                focus: 'center',
+                perPage: 1,
+                autoplay: true,
+                interval: 1500,
+                autoWidth: true,
+                autoHeight: true,
+                breakpoints: {
+                   600:  {
+                        perPage: 1
+                   }
+                }
+            });
+            // var bar    = splide.root.querySelector( '.my-carousel-progress-bar' );
+            //
+            // splide.on( 'mounted move', function () {
+            //     var end  = splide.Components.Controller.getEnd() + 1;
+            //     var rate = Math.min( ( splide.index + 1 ) / end, 1 );
+            //     bar.style.width = String( 100 * rate ) + '%';
+            // } );
+
             splide.mount();
         } );
     </script>
@@ -43,21 +81,25 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-lg-6 col-12">
-                    <div class="shop-image-wrap">
-                        <section class="splide" aria-label="Splide Basic HTML Example">
-                            <div class="splide__track">
-                                <ul class="splide__list">
-                                    {% for image in mission.images %}
-                                        <li class="splide__slide">
-                                            <img src="{{ image.file.imagePath|imagine_filter('thumbnail_big') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </section>
+                <section class="splide col-lg-6 col-12" aria-label="Splide Basic HTML Example">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            {% for image in mission.images %}
+                                <li class="splide__slide">
+                                    <a href="{{ path('front_mission_consulte_image', {
+                                        id: image.file.id,
+                                        missionSlug: mission.slug
+                                    }) }}">
+                                        <img src="{{ image.file.imagePath|imagine_filter('thumbnail_big') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                </div>
+                    <div class="my-carousel-progress">
+                        <div class="my-carousel-progress-bar"></div>
+                    </div>
+                </section>
 
                 <div class="col-lg-6 col-12 m-auto">
 

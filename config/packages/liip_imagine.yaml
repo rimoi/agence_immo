@@ -60,3 +60,10 @@ liip_imagine:
                 thumbnail:
                     size: [ 600, 600 ]
 
+        thumbnail_very_big:
+            jpeg_quality: 100
+            png_compression_level: 8
+            filters:
+                thumbnail:
+                    size: [ 1600, 1200 ]
+

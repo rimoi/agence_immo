@@ -146,7 +146,7 @@ strong {
   SECTION
 -----------------------------------------*/
 .section-padding {
-  padding-top: 100px;
+  padding-top: 25px;
   padding-bottom: 100px;
 }
 
@@ -1026,7 +1026,7 @@ strong {
   }
 
   .section-padding {
-    padding-top: 50px;
+    padding-top: 25px;
     padding-bottom: 50px;
   }
 
