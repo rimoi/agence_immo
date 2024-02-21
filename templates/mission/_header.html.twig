@@ -14,14 +14,13 @@
                     </p>
                 {% endif %}
                 <p class="shop-detail-bar-wrap d-flex flex-wrap mb-0">
-                    <span class="me-2">Prix :</span>
+                    <strong class="me-2">Prix :</strong>
 
                     <strong class="shop-pricing-text">{{ mission.price }} €</strong>
                 </p>
 
-                <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-5 ms-4 mb-0 d-none d-sm-block justify-content-between">
-                    <span> &nbsp; | &nbsp; &nbsp; &nbsp;</span>
-{#                        <span class="me-2">Catégories :</span>#}
+                <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-2 ms-0 mb-0 d-none d-sm-block justify-content-between">
+                    <span> &nbsp; | &nbsp; &nbsp;</span>
 
                     {% if mission.nbPiece %}
                         <div class="mx-1">
@@ -54,10 +53,10 @@
 
                     <p class="shop-detail-bar-wrap d-flex flex-wrap ms-lg-3 ms-4 mb-0 d-none d-sm-block">
                         <span> &nbsp;&nbsp; | &nbsp; &nbsp;</span>
-                        <span class="me-2">Localisation :</span>
+                        <strong class="me-2">Localisation :</strong>
 
-                        <small class="shop-pricing-text text-success">
-                            {{ mission.district.name }} - <b>{{ mission.city.name }}</b>
+                        <small class="shop-condition-text">
+                            <b> {{ mission.district.name }} - {{ mission.city.name }}</b>
 {#                            {% if mission.city %}#}
 {#                                ( {{ mission.city.country.name }} )#}
 {#                            {% endif %}#}
@@ -67,7 +66,9 @@
             </div>
 
             <div class="col-lg-2 col-md-2 col-12 social-share d-flex align-items-center ms-lg-auto mt-3 mt-lg-0 mt-md-0">
-                <p class="mb-0 me-3 ms-lg-auto ms-md-auto">Publié :</p>
+                <p class="mb-0 me-3 ms-lg-auto ms-md-auto">
+                    <strong>Publié :</strong>
+                </p>
 
                 <ul class="social-icon">
 

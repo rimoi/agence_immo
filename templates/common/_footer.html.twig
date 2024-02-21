@@ -3,10 +3,9 @@
         <div class="row">
 
             <div class="col-lg-3 col-md-5 col-12 mb-3">
-                <h3><a href="#" class="custom-link mb-1">MISSION C2C</a></h3>
+                <h3><a href="#" class="custom-link mb-1">Immo Location</a></h3>
 
-                <p class="text-white">Vous en avez assez de payer des commissions sur les plateformes de mise en relation ? <br>
-                    Ce service est conçu spécialement pour vous.</p>
+                <p class="text-white">Vous en avez assez de chercher un appartement ou une maison qui correspond à vos critères et à votre budget ? ImmoLocation est là pour vous aider.</p>
             </div>
 
             <div class="col-lg-3 col-md-3 col-12 ms-lg-auto mb-3">
@@ -14,7 +13,7 @@
 
                 <p class="text-white mt-2">
                     <i class="bi-geo-alt"></i>
-                    Paris, France
+                    Casablanca, Maroc
                 </p>
             </div>
 
@@ -24,44 +23,16 @@
                 <p class="text-white mb-1">
                     <i class="bi-telephone me-1"></i>
 
-                    <a href="tel: +33 605 992 481" class="text-white">
-                        +33 605 992 481
-                    </a>
-                </p>
-
-                <p class="text-white mb-0">
-                    <i class="bi-envelope me-1"></i>
-
-                    <a href="mailto:contact@mission-c2c.com" class="text-white">
-                        contact@mission-c2c.com
+                    <a href="{{ path('contact') }}" class="text-white">
+                        Contactez-nous
                     </a>
                 </p>
             </div>
 
             <div class="col-lg-6 col-md-7 copyright-text-wrap col-12 d-flex flex-wrap align-items-center mt-4 ms-auto">
-                <p class="copyright-text mb-0 me-4">Copyright © C2C JOB {{ 'now'|date('Y') }}</p>
+                <p class="copyright-text mb-0 me-4">Copyright © Immo Location {{ 'now'|date('Y') }}</p>
 
-                <ul class="social-icon">
-{#                    <li class="social-icon-item">#}
-{#                        <a href="#" class="social-icon-link social-icon-twitter bi-twitter"></a>#}
-{#                    </li>#}
-
-{#                    <li class="social-icon-item">#}
-{#                        <a href="#" class="social-icon-link social-icon-facebook bi-facebook"></a>#}
-{#                    </li>#}
-
-{#                    <li class="social-icon-item">#}
-{#                        <a href="#" class="social-icon-link social-icon-instagram bi-instagram"></a>#}
-{#                    </li>#}
-
-{#                    <li class="social-icon-item">#}
-{#                        <a href="#" class="social-icon-link social-icon-pinterest bi-pinterest"></a>#}
-{#                    </li>#}
-
-                    <li class="social-icon-item">
-                        <a href="tel: +33 605 992 481" class="social-icon-link social-icon-whatsapp bi-whatsapp"></a>
-                    </li>
-                </ul>
+                {{ render(controller('App\\Controller\\FooterController::index')) }}
             </div>
 
         </div>

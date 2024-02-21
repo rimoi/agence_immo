@@ -923,7 +923,7 @@ strong {
 -----------------------------------------*/
 .site-footer {
   background: var(--site-footer-bg-color);
-  padding-top: 0;
+  padding-top: 70px;
 }
 
 .site-footer h3 {
@@ -970,6 +970,10 @@ strong {
   display: block;
   margin-right: 15px;
   text-align: center;
+}
+
+.social-icon-link:hover {
+    color: #6ae7e7 !important;
 }
 
 .social-icon-link:hover {
@@ -1086,6 +1090,7 @@ strong {
 @media screen and (max-width: 580px) {
   .site-footer {
     text-align: center;
+      padding: 5px;
   }
 }
 
