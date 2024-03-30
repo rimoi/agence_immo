@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Constant\DeviseConstant;
 use App\Constant\UserConstant;
 use App\Repository\ConversationRepository;
 use Twig\Extension\AbstractExtension;
@@ -32,6 +33,7 @@ class StringExtension extends AbstractExtension
     {
         return [
             new TwigFunction('getMessageNonLu', [$this, 'getMessageNonLu']),
+            new TwigFunction('getEmoji', [$this, 'getEmoji']),
         ];
     }
 
@@ -81,5 +83,14 @@ class StringExtension extends AbstractExtension
     {
 
         return UserConstant::asStringInverse($role) ?? '';
+    }
+
+    public function getEmoji(?string $value): string
+    {
+        if (!$value) {
+            return '';
+        }
+
+        return DeviseConstant::REVERSE_MAP[$value] ?? '';
     }
 }

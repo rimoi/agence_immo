@@ -165,6 +165,28 @@ sup.cs-notification-message {
 }
 
 
+.cs-position-relative {
+    position: relative;
+}
+
+.cs-echarpe {
+    z-index: 2000;
+    position: absolute;
+
+    padding: 10px; /* Marge intérieure de l'écharpe */
+    background-color: #00a05d; /* Couleur caractéristique des écharpes de maire */
+    color: white;
+    border-radius: 10px;
+    transform-origin: top left; /* Changer l'origine de la transformation */
+    transform: rotate(6deg); /* Rotation de l'écharpe */
+    font-weight: 700;
+}
+
+
+.btn-immo.badge {
+    font-size: 13px !important;
+}
+
 @media (max-width: 835px) {
     .cs-messagerie {
         margin-left: 1rem !important;

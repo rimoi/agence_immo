@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Constant\DeviseConstant;
 use App\DTO\CityDTO;
 use App\DTO\CountryDTO;
 use App\Entity\City;
@@ -128,12 +129,11 @@ class ServiceType extends AbstractType
                 ],
                 'attr' => ['class' => 'border-0']
             ])
-            ->add('tags', EntityType::class, [
+            ->add('tag', EntityType::class, [
                 'class' => Tag::class,
                 'choice_label' => 'name',
                 'label' => 'Catégorie',
-                'multiple' => true,
-                'by_reference' => false,
+                'multiple' => false,
                 'attr' => [
                     'placeholder' => 'Veuillez choisir une catégorie...',
                     'class' => 'js-select2',
@@ -167,7 +167,9 @@ class ServiceType extends AbstractType
                      'attr' => ['class' => 'row', 'label' => false],
                  ],
                  'allow_delete' => true,
-//                 'delete_empty' => true
+            ])
+            ->add('devise', ChoiceType::class, [
+                'choices' => DeviseConstant::MAP,
             ])
         ;
 

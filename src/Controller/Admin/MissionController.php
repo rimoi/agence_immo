@@ -149,7 +149,9 @@ class MissionController extends AbstractController
             if (!$mission->getPublished()) {
                 $message = "Votre annonce n'est pas encore publiée. Pour la rendre visible, veuillez vous rendre à l'annonce et cocher la case 'Publier l'annonce'.";
                 $this->addFlash('info', $message);
+
             } else {
+                $mission->setArchived(false);
                 $this->addFlash('success', $message);
             }
 

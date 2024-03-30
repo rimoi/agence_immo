@@ -46,7 +46,7 @@
     <script>
         document.addEventListener( 'DOMContentLoaded', function() {
             var splide = new Splide( '#main-carousel', {
-                pagination: true,
+                pagination: false,
                 type: 'loop',
                 start: $('.js-counter').data('counter')
             } );
@@ -94,6 +94,13 @@
                 FERMER
             </a>
         </div>
+        <ul id="thumbnails" class="thumbnails mb-3" style="margin-top: -54px">
+            {% for image in mission.images %}
+                <li class="thumbnail">
+                    <img src="{{ image.file.imagePath|imagine_filter('thumbnail_medium') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
+                </li>
+            {% endfor %}
+        </ul>
         <div>
             <section id="main-carousel" class="splide" aria-label="Splide Basic HTML Example">
                 <div class="splide__track">
@@ -114,13 +121,7 @@
                     </ul>
                 </div>
             </section>
-            <ul id="thumbnails" class="thumbnails">
-                {% for image in mission.images %}
-                    <li class="thumbnail">
-                        <img src="{{ image.file.imagePath|imagine_filter('thumbnail_medium') }}" class="shop-image img-fluid" alt="Image {{ mission.title }}">
-                    </li>
-                {% endfor %}
-            </ul>
+
         </div>
     </div>
 {% endblock %}

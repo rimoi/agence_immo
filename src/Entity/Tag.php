@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -34,9 +36,14 @@ class Tag
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Mission", inversedBy="tags")
+     * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="tag")
      */
-    private $mission;
+    private $missions;
+
+    public function __construct()
+    {
+        $this->missions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -72,21 +79,32 @@ class Tag
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @return Collection<int, Mission>
+     */
+    public function getMissions(): Collection
     {
-        $this->createdAt = $createdAt;
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): self
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions[] = $mission;
+            $mission->setTag($this);
+        }
 
         return $this;
     }
 
-    public function getMission(): ?Mission
+    public function removeMission(Mission $mission): self
     {
-        return $this->mission;
-    }
-
-    public function setMission(?Mission $mission): self
-    {
-        $this->mission = $mission;
+        if ($this->missions->removeElement($mission)) {
+            // set the owning side to null (unless already changed)
+            if ($mission->getTag() === $this) {
+                $mission->setTag(null);
+            }
+        }
 
         return $this;
     }

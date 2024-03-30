@@ -6,7 +6,7 @@
                 <div class="hero-section-text mt-5">
                     <form class="custom-form hero-form" action="#" method="get" role="form">
                         <div class="row">
-                            <div class="col-lg-5 col-md-6 col-12">
+                            <div class="col-12">
                                 <div class="input-group align-items-center">
                                     <label for="product-name">Mot clef : </label>
 
@@ -16,27 +16,42 @@
                                         name="q"
                                         id="product-name"
                                         class="form-control"
-                                        placeholder="PHP, Symfony, Javascript..."
+                                        placeholder="Appartement meublé, Villa, Maison..."
                                     >
                                 </div>
                             </div>
 
-                            <div class="col-lg-5 col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="input-group align-items-center">
-                                    <label for="last-name">Prix : </label>
-                                    <select name="prices" class="form-select form-control" id="price-range" aria-label="Default select example">
-                                        <option value="1-200" {{ (app.request.get('prices') and app.request.get('prices') == '1-200') ? 'selected'  }}>1€ to 200€</option>
-                                        <option value="200-600" {{ (app.request.get('prices') and app.request.get('prices') == '200-600') ? 'selected'  }}>200€ - 600€</option>
-                                        <option value="600-1000" {{ (app.request.get('prices') and app.request.get('prices') == '600-1000') ? 'selected'  }}>600€ - 1000€</option>
-                                        <option value="1000-1500" {{ (app.request.get('prices') and app.request.get('prices') == '1000-1500') ? 'selected'  }}>1000€ - 1500€</option>
-                                        <option value="1500-15000" {{ (app.request.get('prices') and app.request.get('prices') == '1500-15000') ? 'selected'  }}> > 1500€</option>
+                                    <label for="prices">Types: </label>
+                                    <select name="type" id="prices" class="form-select form-control" id="price-range" aria-label="Default select example">
+                                        <option value=""></option>
+                                        {% for tag in tags %}
+                                            <option value="{{ tag.id }}" {{ (app.request.get('type') and app.request.get('type') == tag.id) ? 'selected'  }}>{{ tag.name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-2 col-md-6 col-12">
-                                <button type="submit" class="form-control">Rechercher</button>
+                            <div class="col-md-4 col-12">
+                                <div class="input-group align-items-center">
+                                    <label for="price-mix">Prix Min: </label>
+                                    <input type="number" id="price-mix" name="priceMin" class="form-control" value="{{ app.request.get('priceMin') }}">
+                                </div>
                             </div>
+
+                            <div class="col-md-4 col-12">
+                                <div class="input-group align-items-center">
+                                    <label for="price-max">Prix Max: </label>
+                                    <input type="number" id="price-max" name="priceMax" class="form-control" value="{{ app.request.get('priceMax') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger form-control custom-link">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                Rechercher
+                            </button>
                         </div>
                     </form>
                 </div>

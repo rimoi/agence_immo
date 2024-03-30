@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Like;
 use App\Entity\Mission;
+use App\Entity\Tag;
 use App\Repository\LikeRepository;
 use App\Repository\MissionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,11 +19,11 @@ class HomeController extends AbstractController
     public function index(
         Request $request,
         MissionRepository $missionRepository,
+        EntityManagerInterface $entityManager,
         PaginatorInterface $pagination
     ) {
         $qb = $missionRepository->getMissiosQueryBuilder(
-            $request->get('q'),
-            $request->get('prices'),
+            $request->query->all(),
             $request->getClientIp()
         );
 
@@ -31,7 +32,8 @@ class HomeController extends AbstractController
                 $qb,
                 $request->get('page', 1),
                 15
-            )
+            ),
+            'tags' => $entityManager->getRepository(Tag::class)->findAll()
         ]);
     }
 

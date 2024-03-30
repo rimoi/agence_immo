@@ -4,8 +4,7 @@ $(function () {
         $('.js-upload-file').trigger('click');
     })
 
-    $(".custom-file-input").on("change", function () {
-
+    $('body').on('change', '.custom-file-input', function () {
         let fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 

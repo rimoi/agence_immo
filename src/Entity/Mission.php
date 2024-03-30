@@ -97,11 +97,6 @@ class Mission
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="mission", cascade={"persist", "remove"})
-     */
-    private $tags;
-
-    /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="mission")
      */
     private $reviews;
@@ -141,6 +136,16 @@ class Mission
      */
     private $likes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="missions")
+     */
+    private $tag;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $devise;
+
     public function isOwner(?User $user): bool
     {
         if ($user && $user->getId() === $this->user->getId()) {
@@ -164,7 +169,6 @@ class Mission
 
     public function __construct()
     {
-        $this->tags = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->conversations = new ArrayCollection();
         $this->districts = new ArrayCollection();
@@ -259,37 +263,6 @@ class Mission
         return $this;
     }
 
-
-    /**
-     * @return Collection|Tag[]
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->setMission($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        if ($this->tags->contains($tag)) {
-            $this->tags->removeElement($tag);
-            // set the owning side to null (unless already changed)
-            if ($tag->getMission() === $this) {
-                $tag->setMission(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Review[]
@@ -529,6 +502,30 @@ class Mission
                 $like->setMission(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTag(): ?Tag
+    {
+        return $this->tag;
+    }
+
+    public function setTag(?Tag $tag): self
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
+    public function getDevise(): ?string
+    {
+        return $this->devise;
+    }
+
+    public function setDevise(?string $devise): self
+    {
+        $this->devise = $devise;
 
         return $this;
     }

@@ -3,7 +3,7 @@
 {#        <a href="{{ path('home') }}">#}
 {#            <img src="{{ asset('assets/images/logo/logo-mission-c2c.png') }}" alt="Logo Mission C2C" width="85px;">#}
 {#        </a>#}
-        <a class="navbar-brand" href="{{ path('home') }}"><span class="tooplate-red">IMMO</span><span class="tooplate-green">LOCATION</span></a>
+        <a class="navbar-brand custom-link" href="{{ path('home') }}"><span class="tooplate-red">IMMO</span><span class="tooplate-green">LOCATION</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -13,14 +13,14 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link click-scroll {{ route starts with 'home' ? 'active' }}" href="{{ path('home') }}">
+                    <a class="custom-link nav-link click-scroll {{ route starts with 'home' ? 'active' }}" href="{{ path('home') }}">
                         <i class="hero-icon bi-house"></i>
                         Accueil
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll {{ route == 'about' ? 'active' }}" href="{{ path('about') }}">
+                    <a class=" custom-link nav-link click-scroll {{ route == 'about' ? 'active' }}" href="{{ path('about') }}">
                         <i class="fa fa-address-card"></i>
                         A propos
                     </a>
@@ -34,7 +34,7 @@
 {#                </li>#}
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll {{ route starts with 'contact' ? 'active' }}" href="{{ path('contact') }}">
+                    <a class="custom-link nav-link click-scroll {{ route starts with 'contact' ? 'active' }}" href="{{ path('contact') }}">
                         <i class="fa fa-file-signature"></i>
                         Contact
                     </a>
@@ -75,14 +75,14 @@
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li>
-                                    <a class="dropdown-item" href="{{ path('admin_index') }}">Admin</a>
+                                    <a class="dropdown-item custom-link" href="{{ path('admin_index') }}">Admin</a>
                                 </li>
                             {% endif %}
                             <li>
-                                <a class="dropdown-item {{ route starts with 'profile' ? 'active' }}" href="{{ path('profile') }}">Mon Profil</a>
+                                <a class="dropdown-item custom-link {{ route starts with 'profile' ? 'active' }}" href="{{ path('profile') }}">Mon Profil</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                                <a class="dropdown-item custom-link" href="{{ path('app_logout') }}">Déconnexion</a>
                             </li>
                         </ul>
                     </li>

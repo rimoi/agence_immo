@@ -22,8 +22,7 @@ class MissionRepository extends ServiceEntityRepository
     }
 
     public function getMissiosQueryBuilder(
-        ?string $term,
-        ?string $prices,
+        array $args,
         ?string $ip = null
     ): QueryBuilder
     {
@@ -40,50 +39,27 @@ class MissionRepository extends ServiceEntityRepository
                 ->setParameter('ip', $ip);
         }
 
-        if ($term) {
+        if ( $args['q'] ?? false ) {
             $qb->andWhere('m.title LIKE :term')
-                ->setParameter('term', '%'.$term.'%');
+                ->setParameter('term', '%'.$args['q'].'%');
         }
 
-        if ($prices) {
+        if ( $args['type'] ?? false ) {
+            $qb
+                ->join('m.tag', 't')
+                ->andWhere('t.id = :tag_id')
+                ->setParameter('tag_id', $args['type']);
+        }
 
-            $prices = explode('-', $prices);
-
-            $qb->andWhere('m.price >= :price1 AND m.price <= :price2')
-                ->setParameter('price1', $prices[0])
-                ->setParameter('price2', $prices[1])
-            ;
+        if ( $args['priceMin'] ?? false ) {
+            $qb->andWhere('m.price >= :priceMin')
+                ->setParameter('priceMin', (int) $args['priceMin']);
+        }
+        if ( $args['priceMax'] ?? false ) {
+            $qb->andWhere('m.price <= :priceMax')
+                ->setParameter('priceMax', (int) $args['priceMax']);
         }
 
         return $qb;
     }
-
-    // /**
-    //  * @return Mission[] Returns an array of Mission objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Mission
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

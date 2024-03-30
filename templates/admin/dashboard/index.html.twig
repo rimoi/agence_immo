@@ -3,5 +3,25 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-    Bienvenue dans la partie administration
+    <div class="container">
+        <div class="row">
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>44</h3>
+
+                        <p>Annonces</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <a href="{{ path('admin_mission_new') }}" class="small-box-footer">
+                        Ajouter une annonce <i class="fas fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

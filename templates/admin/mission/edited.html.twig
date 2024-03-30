@@ -46,12 +46,12 @@
                                    Choisisez une ou plusieurs catégories.
                                 </p>
                                 <div class="form-group">
-                                    {{ form_errors(form.tags) }}
+                                    {{ form_errors(form.tag) }}
                                     <div class="input-group mb-3 border border-light rounded">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text border-0 bg-white">📂</span>
                                         </div>
-                                        {{ form_widget(form.tags, {
+                                        {{ form_widget(form.tag, {
                                             attr: {
                                                 class: 'form-control js-select2'
                                             }
@@ -205,15 +205,28 @@
                                 </p>
                                 <div class="form-group">
                                     {{ form_errors(form.price) }}
+                                    {{ form_errors(form.devise) }}
                                     <div class="input-group mb-3 border border-light rounded">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text border-0 bg-white">💰</span>
                                         </div>
-                                        {{ form_widget(form.price, {
-                                            attr: {
-                                                class: 'form-control'
-                                            }
-                                        }) }}
+                                        <div class="row">
+                                            <div class="col-8">
+                                                {{ form_widget(form.price, {
+                                                    attr: {
+                                                        class: 'form-control'
+                                                    }
+                                                }) }}
+                                            </div>
+                                            <div class="col-4">
+                                                {{ form_widget(form.devise, {
+                                                    attr: {
+                                                        class: 'form-control'
+                                                    }
+                                                }) }}
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
