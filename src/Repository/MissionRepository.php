@@ -60,6 +60,15 @@ class MissionRepository extends ServiceEntityRepository
                 ->setParameter('priceMax', (int) $args['priceMax']);
         }
 
+        if ( $args['district'] ?? false ) {
+            $qb->andWhere('m.district = :district')
+                ->setParameter('district', (int) $args['district']);
+        }
+        if ( $args['city'] ?? false ) {
+            $qb->andWhere('m.city = :city')
+                ->setParameter('city', (int) $args['city']);
+        }
+
         return $qb;
     }
 }

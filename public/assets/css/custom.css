@@ -169,6 +169,10 @@ sup.cs-notification-message {
     position: relative;
 }
 
+.cs-muted-bgcolor {
+    background-color: #6c757d !important;
+}
+
 .cs-echarpe {
     z-index: 2000;
     position: absolute;

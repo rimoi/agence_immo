@@ -114,7 +114,7 @@ $(function () {
         let url = $(this).data("url");
 
         let $element = $(this);
-console.log(missionId, url, )
+
         $.ajax({
             type: 'POST',
             url: url,
@@ -130,5 +130,59 @@ console.log(missionId, url, )
                 }
             }
         })
+    });
+
+    // Recherche page d'accueil
+    $('#city').on('mousedown', function() {
+
+        let url = $(this).data('url');
+
+        const $element = $(this);
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (data) {
+
+                var options = '<option value=""></option>';
+                $.each(data, function(key, value) {
+                    options += '<option value="' + key + '">' + value + '</option>';
+                });
+                $element.html(options);
+
+                $('.cs-search-homepage').removeClass('cs-muted-bgcolor');
+                $('.cs-search-homepage').attr('title', '');
+                $('.cs-search-homepage').prop('disabled', false);
+
+                // Initialise ou actualise le plugin Select2
+                // $element.select2();
+            }
+        })
+    });
+
+    $('#city').on('change', function() {
+        const value = $(this).val();
+
+        let url = $(this).data('target');
+
+        const $element = $('#district');
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            data: {cityId: value},
+            success: function (data) {
+
+                $element.empty();
+
+                var options = '<option value=""></option>';
+                $.each(data, function(key, value) {
+                    options += '<option value="' + key + '">' + value + '</option>';
+                });
+                $element.html(options);
+            }
+        })
+
+
     });
 });
