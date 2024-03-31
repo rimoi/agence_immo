@@ -1,15 +1,15 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}Liste des utilisateurs{% endblock %}
+{% block title %}Liste des réservations{% endblock %}
 
 {% block body %}
 
     <div class="pt-3 text-center">
-        <a href="{{ path('admin_user_new') }}" class="btn btn-secondary">Nouveau utilisateur</a>
+        <a href="{{ path('admin_reservation_new') }}" class="btn btn-secondary">Nouvelle réservation</a>
     </div>
     <div class="container pt-5">
 
-        <div class="my-5 row">
+        <div class="mb-5 mt-2 row">
             <div class="col-md-8 offset-md-2">
                 <form>
                     <div class="input-group">
@@ -30,55 +30,41 @@
                 <div class="card card-primary">
                     <div class="card-header">
                         <i class="fa fa-users"></i>
-                        Liste des utilisateurs</div>
+                        {{ block('title') }}
+                    </div>
                     <div class="card-body">
 
-                        <table class="table table-bordered table-hover">
+                        <table class="table">
                             <thead>
                             <tr>
-                                <th>Avatar</th>
-                                <th>Prénom</th>
-                                <th>Nom</th>
-                                <th>Email</th>
-                                <th>Annonces</th>
-                                <th>Rôles</th>
                                 <th>Création</th>
+                                <th>Proprio</th>
+                                <th>Locataire</th>
+                                <th>Prix</th>
+                                <th>Début location</th>
+                                <th>Fin location</th>
                                 <th>actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for user in users %}
+                            {% for reservation in reservations %}
                                 <tr>
+                                    <td>{{ reservation.createdAt ? reservation.createdAt|ago : '' }}</td>
                                     <td>
-                                        {% if user.avatar %}
-                                            <img src="{{ user.imagePath|imagine_filter('ultra_small') }}" class="rounded-circle" alt="Logo {{ user.nickname }}">
-                                        {% else %}
-                                            <i class="fa-regular fa-circle-user fa-2x text-danger"></i>
-                                        {% endif %}
-                                    </td>
-                                    <td>{{ user.firstName }}</td>
-                                    <td>{{ user.lastName }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>
-                                        {% if user.hasRole('ROLE_OWNER') and user.missions.count %}
-                                            <div class="text-primary">
-                                                {{ user.missions.count }}
-                                                <i class="fas fa-newspaper"></i>
-                                            </div>
-                                        {% endif %}
+                                        <a href="{{ path('admin_user_show', {id: reservation.owner.id}) }}">
+                                            {{ reservation.owner.nickname }}
+                                        </a>
                                     </td>
                                     <td>
-                                        {% for role in user.roles %}
-                                            {% set role_check = translateRole(role) %}
-                                            {% if role_check %}
-                                                <span class="badge rounded-pill bg-dark">
-                                                 {{ role_check }}
-                                                </span>
-                                            {% endif %}
-                                        {% endfor %}
-                                    <td>{{ user.createdAt ? user.createdAt|ago : '' }}</td>
+                                        <a href="{{ path('admin_user_show', {id: reservation.locataire.id}) }}">
+                                            {{ reservation.locataire.nickname }}
+                                        </a>
+                                    </td>
+                                    <td>{{ reservation.price }}</td>
+                                    <td>{{ reservation.startAt ? reservation.startAt|date('d/m/Y H:i') : '' }}</td>
+                                    <td>{{ reservation.endAt ? reservation.endAt|date('d/m/Y H:i') : '' }}</td>
                                     <td>
-                                        <a href="{{ path('admin_user_show', {'id': user.id}) }}">
+                                        <a href="{{ path('admin_reservation_show', {'id': reservation.id}) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
                                             Voir
                                         </a>
@@ -86,7 +72,7 @@
                                         &nbsp;
                                         |
                                         &nbsp;
-                                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}">
+                                        <a href="{{ path('admin_reservation_edit', {'id': reservation.id}) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                                             Modifier
                                         </a>
@@ -94,7 +80,7 @@
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td colspan="12">Pas d'utilisateur trouvé</td>
+                                    <td colspan="12">Pas de réservation trouvé</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -107,3 +93,4 @@
     </div>
 
 {% endblock %}
+

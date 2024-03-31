@@ -1,0 +1,83 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Voir la réservation{% endblock %}
+
+{% block body %}
+
+    <div class="py-2 text-center">
+        <div class="d-flex">
+            <div>
+                <a href="{{ path('admin_reservation_index') }}" class="btn btn-dark">Retour</a>
+            </div>
+            <div class="px-2">
+                <a href="{{ path('admin_reservation_edit', {'id': reservation.id}) }}" class="btn btn-primary">Modifier</a>
+            </div>
+            <div>
+                {{ include('admin/reservation/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">{{ block('title') }}</div>
+                    <div class="card-body">
+                        <table class="table table-responsive table-striped">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ reservation.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Création</th>
+                                <td>{{ reservation.createdAt ? reservation.createdAt|ago : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Proprio</th>
+                                <td>
+                                    <a href="{{ path('admin_user_show', {id: reservation.owner.id}) }}">
+                                        {{ reservation.owner.nickname }}
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Locataire</th>
+                                <td>
+                                    <a href="{{ path('admin_user_show', {id: reservation.locataire.id}) }}">
+                                        {{ reservation.locataire.nickname }}
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Annonce</th>
+                                <td>
+                                    <a href="{{ path('mission_show', {slug: reservation.mission.slug}) }}">
+                                        {{ reservation.mission.title }}
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Début réservation</th>
+                                <td>{{ reservation.startAt ? reservation.startAt|date('Y-m-d H:i:s') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fin réservation</th>
+                                <td>{{ reservation.endAt ? reservation.endAt|date('Y-m-d H:i:s') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Prix</th>
+                                <td>{{ reservation.price }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

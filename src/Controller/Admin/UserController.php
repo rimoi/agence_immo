@@ -22,10 +22,10 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(Request $request, UserRepository $userRepository): Response
     {
         return $this->render('admin/user/index.html.twig', [
-            'users' => $userRepository->findBy([], ['id' => 'DESC']),
+            'users' => $userRepository->searchByName($request->get('search')),
         ]);
     }
 
@@ -49,24 +49,25 @@ class UserController extends AbstractController
                 $user->setRoles([$role]);
             }
 
-            if ($form->get('plainPassword')->getData()) {
+//            if ($form->get('plainPassword')->getData()) {
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
-                        $form->get('plainPassword')->getData()
+                        'immo-mobilier-test212!'
+//                        $form->get('plainPassword')->getData()
                     )
                 );
-            }
+//            }
 
-            $user->setIsVerified(true);
+            $user->setIsVerified(false);
 
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form->get('imageFile')->getData();
-
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadUserAvatar($uploadedFile);
-                $user->setAvatar($newFilename);
-            }
+//            /** @var UploadedFile $uploadedFile */
+//            $uploadedFile = $form->get('imageFile')->getData();
+//
+//            if ($uploadedFile) {
+//                $newFilename = $uploaderHelper->uploadUserAvatar($uploadedFile);
+//                $user->setAvatar($newFilename);
+//            }
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -113,22 +114,22 @@ class UserController extends AbstractController
             }
 
 
-            if ($form->get('plainPassword')->getData()) {
+//            if ($form->get('plainPassword')->getData()) {
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
-                        $form->get('plainPassword')->getData()
+                        'immo-mobilier-test212!'
+//                        $form->get('plainPassword')->getData()
                     )
                 );
-            }
-
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form->get('imageFile')->getData();
-
-            if ($uploadedFile) {
-                $newFilename = $uploaderHelper->uploadUserAvatar($uploadedFile);
-                $user->setAvatar($newFilename);
-            }
+//            }
+//            /** @var UploadedFile $uploadedFile */
+//            $uploadedFile = $form->get('imageFile')->getData();
+//
+//            if ($uploadedFile) {
+//                $newFilename = $uploaderHelper->uploadUserAvatar($uploadedFile);
+//                $user->setAvatar($newFilename);
+//            }
 
             $entityManager->flush();
 

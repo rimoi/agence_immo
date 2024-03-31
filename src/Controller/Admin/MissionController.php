@@ -76,8 +76,6 @@ class MissionController extends AbstractController
             }
 
 
-            $service->setUser($this->getUser());
-
             $this->addFlash('success', 'Votre service a été créé avec succès');
 
             $message = 'Félicitations 🎉, Votre annonce est bel et bien publiée.';
@@ -127,7 +125,7 @@ class MissionController extends AbstractController
 
     ): Response
     {
-        if (!$mission->isOwner($this->getUser())) {
+        if (!$mission->isOwner($this->getUser()) && !$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException("Vous n'avez pas le droit d'accèder à cette resource");
         }
 
@@ -140,8 +138,6 @@ class MissionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $qualificationService->addExperience($form, 'images');
-
-            $mission->setUser($this->getUser());
 
             $this->addFlash('success', 'Votre service a été modifié avec succès');
 

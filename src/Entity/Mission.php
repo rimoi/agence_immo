@@ -146,6 +146,11 @@ class Mission
      */
     private $devise;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="mission")
+     */
+    private $reservations;
+
     public function isOwner(?User $user): bool
     {
         if ($user && $user->getId() === $this->user->getId()) {
@@ -174,6 +179,7 @@ class Mission
         $this->districts = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -526,6 +532,36 @@ class Mission
     public function setDevise(?string $devise): self
     {
         $this->devise = $devise;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getMission() === $this) {
+                $reservation->setMission(null);
+            }
+        }
 
         return $this;
     }

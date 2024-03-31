@@ -15,9 +15,9 @@ security:
 
     role_hierarchy:
         ROLE_CLIENT: ROLE_USER
-        ROLE_FREELANCE: ROLE_USER
+        ROLE_OWNER: ROLE_USER
         ROLE_ADMIN:
-            - ROLE_FREELANCE
+            - ROLE_OWNER
             - ROLE_CLIENT
 
     firewalls:

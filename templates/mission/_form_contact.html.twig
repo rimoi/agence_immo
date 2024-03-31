@@ -1,22 +1,22 @@
 <div class="row">
     <div class="col-12 col-sm-8 offset-sm-2">
         <div class="d-flex align-items-center">
-            <div>
-                {% if mission.user.avatar %}
-                    <img src="{{ mission.user.imagePath|imagine_filter('thumbnail_medium') }}" class="rounded-circle" alt="Logo {{ mission.user.nickname }}">
-                {% else %}
-                    <i class="fa-regular fa-circle-user fa-6x" style="color: #cf6950"></i>
-                {% endif %}
+{#            <div>#}
+{#                {% if mission.user.avatar %}#}
+{#                    <img src="{{ mission.user.imagePath|imagine_filter('thumbnail_medium') }}" class="rounded-circle" alt="Logo {{ mission.user.nickname }}">#}
+{#                {% else %}#}
+{#                    <i class="fa-regular fa-circle-user fa-6x" style="color: #cf6950"></i>#}
+{#                {% endif %}#}
 
-                <p class="section-small-title mt-1 text-center">{{ mission.user.nickname }}</p>
-            </div>
+{#                <p class="section-small-title mt-1 text-center">{{ mission.user.nickname }}</p>#}
+{#            </div>#}
             <div class="ml-4">
                 {{ form_start(form) }}
                 {{ form_row(form.token) }}
 
                 <button class="btn btn-success" type="submit">
                     <i class="fas fa-mobile-alt text-light"></i>
-                    Contactez-moi
+                    Contactez-nous
                 </button>
                 {{ form_end(form) }}
             </div>

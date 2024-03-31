@@ -113,6 +113,18 @@ class User implements UserInterface
      */
     private $senderConversations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="owner")
+     */
+    private $reservations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="locataire")
+     */
+    private $locataires;
+
+
+
     public function nickname(): string
     {
         if ($this->firstName && $this->lastName) {
@@ -141,6 +153,8 @@ class User implements UserInterface
         $this->conversation2s = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->senderConversations = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+        $this->locataires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -478,6 +492,66 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($senderConversation->getSender() === $this) {
                 $senderConversation->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getOwner() === $this) {
+                $reservation->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getLocataires(): Collection
+    {
+        return $this->locataires;
+    }
+
+    public function addLocataire(Reservation $reservation): self
+    {
+        if (!$this->locataires->contains($reservation)) {
+            $this->locataires[] = $reservation;
+            $reservation->setLocataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocataire(Reservation $reservation): self
+    {
+        if ($this->locataires->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getLocataire() === $this) {
+                $reservation->setLocataire(null);
             }
         }
 

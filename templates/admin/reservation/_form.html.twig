@@ -1,0 +1,47 @@
+<div class="container">
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-12 col-sm-8 offset-md-1">
+            <div class="row my-3">
+                <div class="col-12">
+                    {{ form_row(form.owner) }}
+                </div>
+            </div>
+
+            <div class="row my-3">
+                <div class="col-12">
+                    {{ form_row(form.mission) }}
+                </div>
+            </div>
+            <hr>
+            <div class="row my-3">
+                <div class="col-12">
+                    {{ form_row(form.locataire) }}
+                </div>
+            </div>
+            <hr>
+            <div class="row my-3">
+                <div class="col-12">
+                    {{ form_row(form.price) }}
+                </div>
+            </div>
+            <hr>
+            <div class="row my-3">
+                <div class="col-12 col-sm-6">
+                    {{ form_row(form.debut) }}
+                </div>
+                <div class="col-12 col-sm-6">
+                    {{ form_row(form.fin) }}
+                </div>
+
+            </div>
+
+            <div class="row my-3">
+                <div class="col-12 col-lg-3 offset-lg-4">
+                    <button type="submit" class="btn btn-primary">Réservé</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

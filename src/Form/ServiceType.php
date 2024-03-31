@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Constant\DeviseConstant;
+use App\Constant\UserConstant;
 use App\DTO\CityDTO;
 use App\DTO\CountryDTO;
 use App\Entity\City;
@@ -10,6 +11,8 @@ use App\Entity\Country;
 use App\Entity\District;
 use App\Entity\Mission;
 use App\Entity\Tag;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -170,6 +173,26 @@ class ServiceType extends AbstractType
             ])
             ->add('devise', ChoiceType::class, [
                 'choices' => DeviseConstant::MAP,
+            ])
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => static function (User $choice) {
+                    return sprintf('%s %s ( %s )', $choice->getFirstName() , $choice->getLastName(), $choice->getEmail());
+                },
+                'query_builder' => static function (UserRepository $repository) {
+                    return $repository->createQueryBuilder('u')
+                        ->where('u.roles LIKE :role')
+                        ->setParameter('role', '%'.UserConstant::ROLE_OWNER.'%')
+                        ->addOrderBy('u.id', 'ASC');
+                },
+                'label' => 'Propriétaire',
+                'multiple' => false,
+                'required' => true,
+                'placeholder' => 'Merci de choisir un propriétaire',
+                'attr' => [
+                    'class' => 'js-select2',
+                    'style' => "width: 90%",
+                ],
             ])
         ;
 

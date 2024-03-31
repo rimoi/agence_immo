@@ -257,6 +257,31 @@
                                 </div>
                             </div>
                             <hr>
+                            <div class="mb-4">
+                                <h6 class="font-weight-bold">
+                                    Propriètaire<sup class="text-danger">*</sup>
+                                </h6>
+                                <p class="text-muted">
+                                    Merci de choisir un propriétaire pour cette annonce
+                                </p>
+                                <div class="form-group">
+                                    {{ form_errors(form.user) }}
+                                    <div class="input-group mb-3 border border-light rounded">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text border-0 bg-white">
+                                                👷
+                                            </span>
+                                        </div>
+                                        {{ form_widget(form.user, {
+                                            attr: {
+                                                class: 'form-control'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
 
 {#                            <div class="mb-4">#}
 {#                                <h6 class="font-weight-bold">#}

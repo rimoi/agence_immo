@@ -22,49 +22,63 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'placeholder' => 'mohamed@live.fr'
+                ]
+            ])
             ->add('type', ChoiceType::class, [
                     'choices' => [
-                        'Admin' => UserConstant::ROLE_ADMIN,
-                        'Client' => UserConstant::ROLE_USER,
+//                        'Admin' => UserConstant::ROLE_ADMIN,
+                        'Locataire' => UserConstant::ROLE_CLIENT,
+                        'Propriétaire' => UserConstant::ROLE_OWNER,
                     ],
                     'label' => "Rôles",
                     'mapped' => false
                 ]
             )
             ->add('phone', TelType::class, [
-                'required' => false
-            ])
-            ->add('plainPassword', RepeatedType::class, [
-                'mapped' => false,
-                'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent correspondre.',
-                'options' => ['attr' => ['class' => 'password-field']],
                 'required' => false,
-                'first_options'  => ['label' => 'Mot de passe', 'attr' => ['placeholder' => '*******']],
-                'second_options' => ['label' => 'Confirmer le mot de passe', 'attr' => ['placeholder' => '*******']],
+                'attr' => [
+                    'placeholder' => '+22236111924'
+                ]
             ])
+//            ->add('plainPassword', RepeatedType::class, [
+//                'mapped' => false,
+//                'type' => PasswordType::class,
+//                'invalid_message' => 'Les mots de passe doivent correspondre.',
+//                'options' => ['attr' => ['class' => 'password-field']],
+//                'required' => false,
+//                'first_options'  => ['label' => 'Mot de passe', 'attr' => ['placeholder' => '*******']],
+//                'second_options' => ['label' => 'Confirmer le mot de passe', 'attr' => ['placeholder' => '*******']],
+//            ])
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Prénom',
+                'attr' => [
+                    'placeholder' => 'Mohamed'
+                ]
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom'
-            ])
-            ->add('imageFile', FileType::class, [
-                'required' => false,
-                'label' => 'Avatar',
-                'mapped' => false,
+                'label' => 'Nom',
                 'attr' => [
-                    'class' => 'form-control'
-                ],
-                'constraints' => [
-                    new Image(),
-                    new FileConstraint([
-                        'maxSize' => '2M',
-                        'maxSizeMessage' => 'Le fichier est trop volumineux. La taille maximale autorisée est de 2Mo'
-                    ])
-                ],
+                    'placeholder' => 'Mahmoud'
+                ]
             ])
+//            ->add('imageFile', FileType::class, [
+//                'required' => false,
+//                'label' => 'Avatar',
+//                'mapped' => false,
+//                'attr' => [
+//                    'class' => 'form-control'
+//                ],
+//                'constraints' => [
+//                    new Image(),
+//                    new FileConstraint([
+//                        'maxSize' => '2M',
+//                        'maxSizeMessage' => 'Le fichier est trop volumineux. La taille maximale autorisée est de 2Mo'
+//                    ])
+//                ],
+//            ])
         ;
     }
 

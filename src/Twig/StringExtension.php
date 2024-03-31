@@ -25,7 +25,7 @@ class StringExtension extends AbstractExtension
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
             new TwigFilter('truncate', [$this, 'displayTruncateFilter']),
-            new TwigFilter('translateRole', [$this, 'translateRoleFilter']),
+
         ];
     }
 
@@ -34,6 +34,7 @@ class StringExtension extends AbstractExtension
         return [
             new TwigFunction('getMessageNonLu', [$this, 'getMessageNonLu']),
             new TwigFunction('getEmoji', [$this, 'getEmoji']),
+            new TwigFunction('translateRole', [$this, 'translateRoleFilter']),
         ];
     }
 

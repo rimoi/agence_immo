@@ -5,24 +5,24 @@ namespace App\Constant;
 class UserConstant
 {
     public const ADMIN     = "Administrateur";
-    public const FREELANCE = "Freelance";
-    public const CLIENT      = "Client";
+    public const OWNER = "Propriétaire";
+    public const CLIENT      = "Locataire";
 
     public const ROLE_ADMIN     = "ROLE_ADMIN";
-    public const ROLE_FREELANCE = "ROLE_FREELANCE";
+    public const ROLE_OWNER = "ROLE_OWNER";
     public const ROLE_CLIENT      = "ROLE_CLIENT";
     public const ROLE_USER      = "ROLE_USER";
 
     private static $MAP = [
         self::ADMIN   => self::ADMIN,
-        self::FREELANCE => self::FREELANCE,
+        self::OWNER => self::OWNER,
         self::CLIENT    => self::CLIENT
     ];
 
     private static $MAP_STRING = [
         self::ADMIN   => self::ROLE_ADMIN,
-        self::FREELANCE => self::ROLE_FREELANCE,
-        self::CLIENT    => self::ROLE_USER
+        self::OWNER => self::ROLE_OWNER,
+        self::CLIENT    => self::ROLE_CLIENT
     ];
 
     public static function all(): array

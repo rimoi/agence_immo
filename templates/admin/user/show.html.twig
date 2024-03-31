@@ -1,14 +1,22 @@
 {% extends 'admin.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}La fiche de {{ user.nickname|capitalize }}{% endblock %}
 
 {% block body %}
 
     <div class="py-2 text-center">
         <div class="d-flex">
-            <div>
-                <a href="{{ path('admin_user_index') }}" class="btn btn-dark">Retour</a>
-            </div>
+            {% set previousRoute = app.request.headers.get('referer') %}
+
+            {% if previousRoute matches "/\\b(reservation)\\b/" %}
+                <div>
+                    <a href="{{ previousRoute }}" class="btn btn-dark">Retour</a>
+                </div>
+            {% else %}
+                <div>
+                    <a href="{{ path('admin_user_index') }}" class="btn btn-dark">Retour</a>
+                </div>
+            {% endif %}
             <div class="px-2">
                 <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-primary">Modifier</a>
             </div>
@@ -18,66 +26,123 @@
         </div>
     </div>
 
-    <div class="container pt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card card-primary">
-                    <div class="card-header">Voir {{ user.nickname }}</div>
-                    <div class="card-body">
-                        <table class="table table-responsive table-borderless">
-                            <tbody>
+    <div class="container-fluid pt-5">
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <div class="card card-widget widget-user">
 
-                            <tr>
-                                <td>
-                                    {% if user.avatar %}
-                                        <img src="{{ user.imagePath|imagine_filter('thumbnail_medium') }}" class="rounded-circle" alt="Logo {{ user.nickname }}">
-                                    {% else %}
-                                        <i class="fa-regular fa-circle-user fa-2x text-danger"></i>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Id</th>
-                                <td>{{ user.id }}</td>
-                            </tr>
-                            <tr>
-                                <th>Email</th>
-                                <td>{{ user.email }}</td>
-                            </tr>
-                            <tr>
-                                <th>Roles</th>
-                                <td>
-                                    {% for role in user.roles %}
-                                        <span class="badge rounded-pill bg-dark">
+                    <div class="widget-user-header bg-info">
+                        <h3 class="widget-user-username">{{ user.nickname|capitalize }}</h3>
+                    </div>
+                    <div class="widget-user-image">
+                        {% if user.avatar %}
+                                                                <img src="{{ user.imagePath|imagine_filter('thumbnail_medium') }}" class="rounded-circle" alt="Logo {{ user.nickname }}">
+                                                            {% else %}
+                                                                <i class="fa-regular fa-circle-user fa-5x text-warning"></i>
+                                                            {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ user.firstName }}</h5>
+                                    <span class="description-text">Prénom</span>
+                                </div>
 
-                            {{ role|translateRole }}
-                        </span>
-                                    {% endfor %}
-                            </tr>
-                            <tr>
-                                <th>Prénom</th>
-                                <td>{{ user.firstName }}</td>
-                            </tr>
-                            <tr>
-                                <th>Nom</th>
-                                <td>{{ user.lastName }}</td>
-                            </tr>
-                            <tr>
-                                <th>Crée le</th>
-                                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                            </tr>
-                            <tr>
-                                <th>Mise à jour le</th>
-                                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                            </tr>
-                            <tr>
-                                <th>Slug</th>
-                                <td>{{ user.slug }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            </div>
+
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ user.lastName }}</h5>
+                                    <span class="description-text">Nom</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ user.phone }}</h5>
+                                    <span class="description-text">Téléphone</span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ user.email }}</h5>
+                                    <span class="description-text">Email</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">
+                                        {% for role in user.roles %}
+
+                                            {% set role_check = translateRole(role) %}
+                                            {% if role_check %}
+                                                <span class="badge rounded-pill bg-dark">
+                                                 {{ role_check }}
+                                                </span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h5>
+                                    <span class="description-text">Rôles</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ user.createdAt ? user.createdAt|date('d/m/Y à H:i') : '' }}</h5>
+                                    <span class="description-text">Crée le</span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ user.updatedAt ? user.updatedAt|date('d/m/Y à H:i') : '' }}</h5>
+                                    <span class="description-text">Mise à jour le</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
+
+            </div>
+            <div class="col-md-2 offset-sm-1 offset-0  col-12">
+                {% for mission in user.missions %}
+
+
+                        <div class="info-box">
+                        <span class="info-box-icon bg-danger">
+                             <a href="{{ path('mission_show', { slug: mission.slug }) }}">
+                                        {% if mission.images.first and mission.images.first.file %}
+                                            <img class="shop-image img-fluid" src="{{ mission.images.first.file.imagePath|imagine_filter('thumbnail_medium') }}" alt="Image {{ mission.title }}">
+                                        {% else %}
+                                            <img class="shop-image img-fluid" src="https://placehold.co/416x416/png" />
+                                        {% endif %}
+
+                                    </a>
+                        </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">
+                                      <a href="{{ path('mission_show', {slug: mission.slug}) }}">
+                                            {{ mission.title }}
+                                      </a>
+                                </span>
+                                <span class="info-box-number">
+                                {{ mission.price }}
+                                    <span title="{{ mission.devise }}">{{ getEmoji(mission.devise) }}</span>
+                            </span>
+                            </div>
+
+                        </div>
+
+                {% endfor %}
             </div>
         </div>
     </div>

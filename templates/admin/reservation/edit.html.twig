@@ -1,0 +1,90 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Modification d'une réservation{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr(".datepicker", {
+            enableTime: true,
+            dateFormat: "d/m/Y H:i",
+            defaultHour: '09',
+        });
+    </script>
+
+
+    <script>
+
+        $(function () {
+            var $sport = $('#reservation_owner');
+            $sport.change(function() {
+
+                $('.js-loader').addClass('spinner-border')
+
+                var $form = $(this).closest('form');
+
+                var data = {};
+                data[$sport.attr('name')] = $sport.val();
+
+                $.ajax({
+                    url : $form.attr('action'),
+                    type: $form.attr('method'),
+                    data : data,
+                    success: function(html) {
+                        $('#reservation_mission').replaceWith(
+                            $(html).find('#reservation_mission')
+                        );
+
+                        $('#reservation_mission').css('width', '100%');
+
+                        $('#reservation_mission').select2();
+
+                        setTimeout(function () {
+                            $('.js-loader').removeClass('spinner-border')
+                        }, 500);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="py-2 text-center">
+        <div class="d-flex">
+            <div>
+                <a href="{{ path('admin_reservation_index') }}" class="btn btn-dark">Retour</a>
+            </div>
+            <div class="pl-2">
+                {{ include('admin/reservation/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                <div class="card card-primary">
+                    <div class="card-header">Modification de la reservation</div>
+                    <div class="card-body">
+                        {{ include('admin/reservation/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
