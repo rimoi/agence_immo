@@ -26,6 +26,8 @@
                                         <th>
                                             Prix</th>
                                         <th>
+                                            Réservé ?</th>
+                                        <th>
                                             Publié ?</th>
                                         <th>
                                             Date de création</th>
@@ -47,11 +49,19 @@
                                             </td>
                                             <td>{{ mission.price }} €</td>
                                             <td>
+                                                {% if mission.reserved %}
+                                                    <span class="badge badge-pill badge-warning">Oui</span>
+                                                {% else %}
+                                                    <span class="badge badge-pill badge-secondary">Non</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
                                                 {% if mission.published %}
                                                     <span class="badge badge-pill badge-primary">Oui</span>
                                                 {% else %}
                                                     <span class="badge badge-pill badge-secondary">Non</span>
                                                 {% endif %}
+                                            </td>
                                             <td>{{ mission.createdAt ? mission.createdAt|ago : '' }}</td>
                                             <td>{{ (mission.updatedAt  and mission.updatedAt|date('d/m/YHi') != mission.createdAt|date('d/m/YHi')) ? mission.updatedAt|ago : '' }}</td>
                                             <td>

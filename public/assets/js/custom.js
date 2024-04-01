@@ -150,10 +150,6 @@ $(function () {
                 });
                 $element.html(options);
 
-                $('.cs-search-homepage').removeClass('cs-muted-bgcolor');
-                $('.cs-search-homepage').attr('title', '');
-                $('.cs-search-homepage').prop('disabled', false);
-
                 // Initialise ou actualise le plugin Select2
                 // $element.select2();
             }
@@ -180,6 +176,10 @@ $(function () {
                     options += '<option value="' + key + '">' + value + '</option>';
                 });
                 $element.html(options);
+
+                $('.cs-search-homepage').removeClass('cs-muted-bgcolor');
+                $('.cs-search-homepage').attr('title', '');
+                $('.cs-search-homepage').prop('disabled', false);
             }
         })
 

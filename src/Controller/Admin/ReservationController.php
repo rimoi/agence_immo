@@ -55,6 +55,9 @@ class ReservationController extends AbstractController
                 ]);
             }
 
+            $mission = $reservation->getMission();
+            $mission->setReserved(true);
+
             $reservationRepository->add($reservation);
             return $this->redirectToRoute('admin_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -101,6 +104,8 @@ class ReservationController extends AbstractController
                     'form' => $form->createView(),
                 ]);
             }
+            $mission = $reservation->getMission();
+            $mission->setReserved(true);
 
             $reservationRepository->add($reservation);
             return $this->redirectToRoute('admin_reservation_index', [], Response::HTTP_SEE_OTHER);

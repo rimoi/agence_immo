@@ -151,6 +151,11 @@ class Mission
      */
     private $reservations;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $reserved = false;
+
     public function isOwner(?User $user): bool
     {
         if ($user && $user->getId() === $this->user->getId()) {
@@ -564,5 +569,15 @@ class Mission
         }
 
         return $this;
+    }
+
+    public function isReserved(): ?bool
+    {
+        return $this->reserved;
+    }
+
+    public function setReserved(?bool $reserved): void
+    {
+        $this->reserved = $reserved;
     }
 }

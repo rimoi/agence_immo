@@ -2,19 +2,24 @@
 
 {% block title %}À Propos de Notre Plateforme{% endblock %}
 {% block description %}
-    A propos de la plateforme MISSION C2C, qui visent à mettre en relation les clients et les freelancers, en mettant l'accent sur le fait que c'est 100% gratuit pour les clients et 0% commission pour les freelancers.
+    {% if about %}
+        {{ about.description|truncate(250, '...')|raw }}
+    {% endif %}
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="pt-5">À Propos de Notre Plateforme</h1>
+
+    {% if about %}
+        <div class="container">
+            <h1 class="pt-5">{{ about.name }}</h1>
 
 
-        <p class="mt-4">Notre site est bien plus qu'une simple plateforme de location immobilière - c'est une communauté dynamique dédiée à simplifier et à améliorer l'expérience de recherche et de location de logements. Fondée sur les principes de transparence, de fiabilité et de service exceptionnel, notre plateforme s'efforce de connecter les locataires avec les propriétaires et les agents immobiliers de confiance.</p>
-        <p>Que vous soyez un jeune professionnel à la recherche d'un appartement moderne en ville, une famille cherchant une maison spacieuse avec jardin, ou même un étudiant recherchant une chambre en colocation, nous avons une large gamme d'options pour répondre à vos besoins. Notre catalogue comprend des propriétés dans divers quartiers, avec une variété de commodités et de caractéristiques pour correspondre à votre style de vie et à votre budget.</p>
-        <p>En plus de notre vaste sélection de biens immobiliers, nous nous engageons à fournir une expérience utilisateur exceptionnelle. Notre site est convivial, intuitif et facile à naviguer, avec des outils de recherche avancés pour vous aider à trouver rapidement les options qui vous intéressent. De plus, notre équipe de support client est toujours disponible pour répondre à vos questions, vous guider à travers le processus de location, et vous fournir toute l'assistance dont vous pourriez avoir besoin.</p>
-        <p>Que vous soyez locataire ou propriétaire, VotreSite est là pour vous aider à réussir dans votre parcours immobilier. Nous sommes fiers de jouer un rôle dans la création de foyers heureux et de contribuer à la croissance et au bien-être de nos communautés.</p>
+            <p class="mt-5">
+                {{ about.description|raw }}
+            </p>
+        </div>
+    {% else %}
+        <p class="alert alert-success">Veuillez configurer la page 'À propos' à partir de l'espace d'administration.</p>
+    {% endif %}
 
-
-    </div>
 {% endblock %}
