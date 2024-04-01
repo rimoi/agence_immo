@@ -75,16 +75,6 @@
                             </div>
 
                         <div class="input-group align-items-center">
-                            <label for="first-name">Type de client</label>
-
-                            {{ form_widget(form.type, {
-                                attr: {
-                                    class: 'form-control'
-                                }
-                            }) }}
-                        </div>
-
-                        <div class="input-group align-items-center">
                             <label for="first-name">Captcha</label>
                             {{ form_errors(form.captcha) }}
                             {{ form_widget(form.captcha, {'attr': {

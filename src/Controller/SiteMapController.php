@@ -19,13 +19,12 @@ class SiteMapController extends AbstractController
         $urls = [];
 
         $urls[] = ['loc' => $urlGenerator->generate('home', [], UrlGeneratorInterface::ABSOLUTE_URL)];
-        $urls[] = ['loc' => $urlGenerator->generate('about', [], UrlGeneratorInterface::ABSOLUTE_URL)];
-        $urls[] = ['loc' => $urlGenerator->generate('service_new', [], UrlGeneratorInterface::ABSOLUTE_URL)];
+        $urls[] = ['loc' => $urlGenerator->generate('about', [], UrlGeneratorInterface::ABSOLUTE_URL), 'changefreq' => 'monthly'];
         $urls[] = ['loc' => $urlGenerator->generate('contact', [], UrlGeneratorInterface::ABSOLUTE_URL)];
         $urls[] = ['loc' => $urlGenerator->generate('app_login', [], UrlGeneratorInterface::ABSOLUTE_URL)];
-        $urls[] = ['loc' => $urlGenerator->generate('app_register', [], UrlGeneratorInterface::ABSOLUTE_URL)];
+//        $urls[] = ['loc' => $urlGenerator->generate('app_register', [], UrlGeneratorInterface::ABSOLUTE_URL)];
 
-        $missions = $entityManager->getRepository(Mission::class)->findBy(['archived' => false]);
+        $missions = $entityManager->getRepository(Mission::class)->findBy(['archived' => false, 'published' => true, 'reserved' => false]);
 
         foreach ($missions as $mission) {
             $urls[] = [

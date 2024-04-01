@@ -49,15 +49,6 @@ class ContactType extends AbstractType
                     'rows' => 5
                 ],
             ])
-            ->add('type', ChoiceType::class, [
-                    'choices' => [
-                        'Freelance' => UserConstant::ROLE_FREELANCE,
-                        'Client' => UserConstant::ROLE_CLIENT,
-                        'Autres' => 'Autres',
-                    ],
-                    'label' => "Type de client",
-                ]
-            )
             ->add('captcha', CaptchaType::class, [
                 'width' => 250,
                 'height' => 80,
