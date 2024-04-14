@@ -37,10 +37,6 @@ class ContactController extends AbstractController
             $contact->setEmail($this->getUser()->getEmail());
             $contact->setPhone($this->getUser()->getPhone());
             $contact->setName($this->getUser()->nickname());
-
-            $contact->setType(
-                $this->getUser()->hasRole(UserConstant::ROLE_FREELANCE) ? UserConstant::ROLE_FREELANCE : UserConstant::ROLE_CLIENT
-            );
         }
 
         $form = $this->createForm(ContactType::class, $contact);
