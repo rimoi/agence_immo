@@ -63,9 +63,9 @@ class RegistrationController extends AbstractController
             $template = 'registration/confirmation_email.html.twig';
 
             $templateEmail = (new TemplatedEmail())
-                ->from(new Address($emailSender, 'MISSION C2C'))
+                ->from(new Address($emailSender, 'AGARATI'))
                 ->to($user->getEmail())
-                ->subject('MISSION C2C - Activez votre compte')
+                ->subject('AGARATI - Activez votre compte')
                 ->htmlTemplate($template)
                 ->context([
                     'name' => $user->nickname(),

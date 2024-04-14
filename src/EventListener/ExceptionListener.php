@@ -64,7 +64,7 @@ class ExceptionListener
             }
 
             $message = sprintf(
-                "<b>[ MISSION C2C ] Le message d'erreur</b> :<br/><br><code>%s</code>",
+                "<b>[ AGARATI ] Le message d'erreur</b> :<br/><br><code>%s</code>",
                 $exception->getTraceAsString()
             );
 

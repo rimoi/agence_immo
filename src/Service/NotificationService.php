@@ -54,9 +54,9 @@ class NotificationService
         $template = 'mailing/contact.html.twig';
 
         $templateEmail = (new TemplatedEmail())
-            ->from(new Address($this->emailSender, 'MISSION C2C'))
+            ->from(new Address($this->emailSender, 'AGARATI'))
             ->to($this->emailPerso)
-            ->subject('MISSION C2C - Prise de contact ')
+            ->subject('AGARATI - Prise de contact ')
             ->htmlTemplate($template)
             ->context([
                 'contact' => $contact,
@@ -72,7 +72,7 @@ class NotificationService
         $template = 'mailing/new_contact.html.twig';
 
         $templateEmail = (new TemplatedEmail())
-            ->from(new Address($this->emailSender, 'MISSION C2C'))
+            ->from(new Address($this->emailSender, 'AGARATI'))
             ->to($conversation->getUser2()->getEmail())
             ->subject(
                 sprintf('%s vous a envoyé 1 message', $conversation->getUser1()->nickname())
